@@ -1,5 +1,4 @@
 const fs = require("fs");
-const path = require("path");
 
 exports.onPreBootstrap = ({ reporter }, options) => {
   const contentPath = options.contentPath;
@@ -14,7 +13,25 @@ exports.onPostBuild = ({ reporter }) => {
   reporter.info(`Your Gatsby site has been built!`);
 };
 
-// TODO: createSchemaCustomization
+exports.createSchemaCustomization = ({ actions }) => {
+  const { createTypes } = actions;
+
+  createTypes(`
+    type Mdx implements Node {
+      frontmatter: MdxFrontmatter!
+    }
+    type MdxFrontmatter {
+      id: ID!
+      date: Date! @dateformat
+      slug: String!
+      title: String!
+      draft: Boolean
+      featuredImage: File @fileByRelativePath
+      tags: [String!]
+      categories: [String!]
+    }
+    `);
+};
 
 exports.createPages = async ({ actions, graphql, reporter }, options) => {
   const basePath = options.basePath || "/";
@@ -34,6 +51,11 @@ exports.createPages = async ({ actions, graphql, reporter }, options) => {
             date
             slug
             title
+            featuredImage {
+              childImageSharp {
+                gatsbyImageData(width: 800, placeholder: BLURRED)
+              }
+            }
           }
         }
       }
