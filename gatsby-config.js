@@ -3,25 +3,14 @@ module.exports = ({ contentPath = "data", basePath = "/" }) => ({
     {
       resolve: "gatsby-source-filesystem",
       options: {
-        path: contentPath,
-      },
-    },
-    {
-      resolve: "gatsby-source-filesystem",
-      options: {
         path: "content/posts",
       },
     },
     {
-      resolve: "gatsby-plugin-page-creator",
+      resolve: "gatsby-plugin-mdx",
       options: {
-        path: `${__dirname}/src/pages`,
-      },
-    },
-    {
-      resolve: "gatsby-transformer-remark",
-      options: {
-        plugins: [
+        extensions: [`.md`, `.mdx`],
+        gatsbyRemarkPlugins: [
           {
             resolve: "gatsby-remark-prismjs",
             options: {
@@ -35,9 +24,9 @@ module.exports = ({ contentPath = "data", basePath = "/" }) => ({
       },
     },
     {
-      resolve: "gatsby-transformer-yaml",
+      resolve: "gatsby-plugin-page-creator",
       options: {
-        typeName: "Event",
+        path: `${__dirname}/src/pages`,
       },
     },
   ],

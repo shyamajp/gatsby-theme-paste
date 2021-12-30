@@ -1,8 +1,8 @@
 const fs = require("fs");
+const path = require("path");
 
-// 1. make sure the data directory exists
 exports.onPreBootstrap = ({ reporter }, options) => {
-  const contentPath = options.contentPath || "data";
+  const contentPath = options.contentPath;
 
   if (!fs.existsSync(contentPath)) {
     reporter.info(`creating the ${contentPath} directory`);
@@ -10,57 +10,31 @@ exports.onPreBootstrap = ({ reporter }, options) => {
   }
 };
 
-// 2. define the event type
-exports.createSchemaCustomization = ({ actions }) => {
-  actions.createTypes(`
-    type Event implements Node @dontInfer {
-      id: ID!
-      name: String!
-      location: String!
-      startDate: Date! @dateformat @proxy(from: "start_date")
-      endDate: Date! @dateformat @proxy(from: "end_date")
-      url: String!
-      slug: String!
-    }
-  `);
+exports.onPostBuild = ({ reporter }) => {
+  reporter.info(`Your Gatsby site has been built!`);
 };
 
-// 3. define resolvers for any custom fields (slug)
-exports.createResolvers = ({ createResolvers }, options) => {
-  const basePath = options.basePath || "/";
-  const slugify = (str) => {
-    const slug = str
-      .toLowerCase()
-      // replace non-alphanumeric characters with hyphens
-      .replace(/[^a-z0-9]+/g, "-")
-      // remove starting or trailing slashes
-      .replace(/(^-|-\$)+/g, "");
-    // remove consequtive forward slashes
-    return `/${basePath}/${slug}`.replace(/\/\/+/g, "/");
-  };
-  createResolvers({
-    Event: {
-      slug: {
-        resolve: (source) => slugify(source.name),
-      },
-    },
-  });
-};
+// TODO: createSchemaCustomization
 
-// 4. query for events and create pages
 exports.createPages = async ({ actions, graphql, reporter }, options) => {
   const basePath = options.basePath || "/";
   actions.createPage({
     path: basePath,
-    component: require.resolve("./src/templates/events.js"),
+    component: require.resolve("./src/templates/posts.js"),
   });
 
   const result = await graphql(`
     query {
-      allEvent(sort: { fields: startDate, order: ASC }) {
+      allMdx {
         nodes {
-          id
-          slug
+          tableOfContents
+          timeToRead
+          body
+          frontmatter {
+            date
+            slug
+            title
+          }
         }
       }
     }
@@ -71,14 +45,13 @@ exports.createPages = async ({ actions, graphql, reporter }, options) => {
     return;
   }
 
-  const events = result.data.allEvent.nodes;
-  events.forEach((event) => {
-    const slug = event.slug;
+  const posts = result.data.allMdx.nodes;
+  posts.forEach((node) => {
     actions.createPage({
-      path: slug,
-      component: require.resolve("./src/templates/event.js"),
+      path: `/blog/${node.frontmatter.slug}`,
+      component: require.resolve("./src/templates/post.js"),
       context: {
-        eventID: event.id,
+        post: node,
       },
     });
   });
