@@ -1,0 +1,25 @@
+{
+  "name": "gatsby-theme-paste",
+  "version": "1.0.0",
+  "license": "MIT",
+  "main": "index.js",
+  "scripts": {
+    "build": "gatsby build",
+    "develop": "gatsby develop",
+    "clean": "gatsby clean"
+  },
+  "peerDependencies": {
+    "gatsby": "^4.4.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  },
+  "devDependencies": {
+    "gatsby": "^4.4.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  },
+  "dependencies": {
+    "gatsby-source-filesystem": "^4.4.0",
+    "gatsby-transformer-yaml": "^4.4.0"
+  }
+}
