@@ -11,7 +11,7 @@ exports.onPreBootstrap = ({ reporter }, options) => {
 };
 
 // 2. define the event type
-exports.sourceNodes = ({ actions }) => {
+exports.createSchemaCustomization = ({ actions }) => {
   actions.createTypes(`
     type Event implements Node @dontInfer {
       id: ID!
