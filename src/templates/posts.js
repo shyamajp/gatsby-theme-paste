@@ -1,29 +1,36 @@
 import React from "react";
-import { graphql, useStaticQuery } from "gatsby";
+import { graphql, Link } from "gatsby";
 
 import Layout from "../components/layout";
 
-const PostsTemplate = () => {
-  const data = graphql`
-    query {
-      allMdx {
-        nodes {
-          frontmatter {
-            slug
-            title
-            date(formatString: "MMMM DD, YYYY")
-          }
+export const query = graphql`
+  query {
+    allMdx {
+      nodes {
+        frontmatter {
+          slug
+          title
+          date(formatString: "MMMM DD, YYYY")
         }
       }
     }
-  `;
+  }
+`;
 
-  const posts = data.allMdx;
+const PostsTemplate = ({ data }) => {
+  const posts = data.allMdx.nodes;
 
-  console.log(posts);
   return (
     <Layout>
-      <ul>aaa</ul>
+      <ul>
+        {posts.map(({ frontmatter }) => {
+          return (
+            <li key={frontmatter.slug}>
+              <Link to={`/blog/${frontmatter.slug}`}>{frontmatter.title}</Link> on {frontmatter.date}
+            </li>
+          );
+        })}
+      </ul>
     </Layout>
   );
 };
