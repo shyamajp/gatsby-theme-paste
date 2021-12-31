@@ -29,6 +29,7 @@ exports.createSchemaCustomization = ({ actions }) => {
       featuredImage: File @fileByRelativePath
       tags: [String!]
       categories: [String!]
+      type: String!
     }
     `);
 };
@@ -70,7 +71,7 @@ exports.createPages = async ({ actions, graphql, reporter }, options) => {
   const posts = result.data.allMdx.nodes;
   posts.forEach((node) => {
     actions.createPage({
-      path: `/blog/${node.frontmatter.slug}`,
+      path: node.frontmatter.type === "post" ? `/blog/${node.frontmatter.slug}` : node.frontmatter.slug,
       component: require.resolve("./src/templates/post.js"),
       context: {
         post: node,

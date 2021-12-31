@@ -5,7 +5,7 @@ import Layout from "../components/layout";
 
 export const query = graphql`
   query {
-    allMdx {
+    allMdx(filter: { frontmatter: { type: { eq: "post" } } }) {
       nodes {
         frontmatter {
           slug

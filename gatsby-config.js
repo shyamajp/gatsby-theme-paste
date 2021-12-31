@@ -6,13 +6,7 @@ module.exports = ({ contentPath = "data", basePath = "/" }) => ({
     {
       resolve: "gatsby-source-filesystem",
       options: {
-        path: "content/posts",
-      },
-    },
-    {
-      resolve: "gatsby-source-filesystem",
-      options: {
-        path: "content/assets",
+        path: "content",
       },
     },
     {
