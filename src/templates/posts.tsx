@@ -2,6 +2,7 @@ import React from "react";
 import { graphql, Link } from "gatsby";
 
 import Layout from "../components/layout";
+import { Post } from "../queries/post";
 
 export const query = graphql`
   query {
@@ -18,7 +19,7 @@ export const query = graphql`
 `;
 
 const PostsTemplate = ({ data }) => {
-  const posts = data.allMdx.nodes;
+  const posts: Partial<Post>[] = data.allMdx.nodes;
 
   return (
     <Layout>

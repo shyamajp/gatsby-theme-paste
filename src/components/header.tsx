@@ -1,7 +1,9 @@
 import React from "react";
 import { Link } from "gatsby";
 
-const Header = ({ title, menuLinks }) => {
+import { SiteMetadata } from "../queries/siteMetadata";
+
+const Header = ({ title, menuLinks }: Partial<SiteMetadata>) => {
   return (
     <div>
       <h1>{title}</h1>

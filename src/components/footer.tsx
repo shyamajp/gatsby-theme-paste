@@ -1,7 +1,9 @@
 import React from "react";
 import { Link } from "gatsby";
 
-const Footer = ({ title, author, social }) => {
+import { SiteMetadata } from "../queries/siteMetadata";
+
+const Footer = ({ title, author, social }: Partial<SiteMetadata>) => {
   return (
     <div>
       <span>

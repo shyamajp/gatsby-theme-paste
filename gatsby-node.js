@@ -21,15 +21,14 @@ exports.createSchemaCustomization = ({ actions }) => {
       frontmatter: MdxFrontmatter!
     }
     type MdxFrontmatter {
-      id: ID!
       date: Date! @dateformat
       slug: String!
       title: String!
       draft: Boolean
-      featuredImage: File @fileByRelativePath
-      tags: [String!]
-      categories: [String!]
       type: String!
+      featuredImage: File @fileByRelativePath
+      tags: [String]
+      categories: [String]
     }
     `);
 };
@@ -38,7 +37,7 @@ exports.createPages = async ({ actions, graphql, reporter }, options) => {
   const basePath = options.basePath || "/";
   actions.createPage({
     path: basePath,
-    component: require.resolve("./src/templates/posts.js"),
+    component: require.resolve("./src/templates/posts.tsx"),
   });
 
   const result = await graphql(`
@@ -57,6 +56,7 @@ exports.createPages = async ({ actions, graphql, reporter }, options) => {
                 gatsbyImageData(width: 800, placeholder: BLURRED)
               }
             }
+            type
           }
         }
       }
@@ -72,7 +72,7 @@ exports.createPages = async ({ actions, graphql, reporter }, options) => {
   posts.forEach((node) => {
     actions.createPage({
       path: node.frontmatter.type === "post" ? `/blog/${node.frontmatter.slug}` : node.frontmatter.slug,
-      component: require.resolve("./src/templates/post.js"),
+      component: require.resolve("./src/templates/post.tsx"),
       context: {
         post: node,
       },

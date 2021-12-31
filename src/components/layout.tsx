@@ -3,6 +3,7 @@ import { useStaticQuery, graphql } from "gatsby";
 
 import Header from "./header";
 import Footer from "./footer";
+import { SiteMetadata } from "../queries/siteMetadata";
 
 export const Layout = ({ children }) => {
   const data = useStaticQuery(graphql`
@@ -24,7 +25,7 @@ export const Layout = ({ children }) => {
     }
   `);
 
-  const siteMetadata = data.site.siteMetadata;
+  const siteMetadata: SiteMetadata = data.site.siteMetadata;
 
   return (
     <div>

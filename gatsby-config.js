@@ -1,4 +1,4 @@
-module.exports = ({ contentPath = "data", basePath = "/" }) => ({
+module.exports = ({ contentPath = "content", basePath = "/" }) => ({
   plugins: [
     "gatsby-plugin-sharp",
     "gatsby-remark-images",

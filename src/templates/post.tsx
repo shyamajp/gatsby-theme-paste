@@ -5,9 +5,9 @@ import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import { MDXProvider } from "@mdx-js/react";
 
 import Layout from "../components/layout";
+import { Post } from "../queries/post";
 
-const PostTemplate = ({ pageContext }) => {
-  const { post } = pageContext;
+const PostTemplate = ({ pageContext: { post } }: { pageContext: { post: Partial<Post> } }) => {
   const shortcodes = { Link };
   const image = getImage(post.frontmatter.featuredImage);
 
