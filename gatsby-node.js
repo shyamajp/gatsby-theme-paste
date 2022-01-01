@@ -110,7 +110,7 @@ exports.createPages = async ({ actions, graphql, reporter }, options) => {
   posts.forEach(({ node }) => {
     if (node.frontmatter.type === "post") {
       createPage({
-        path: node.frontmatter.slug,
+        path: `/blog/${node.frontmatter.slug}`,
         component: postTemplate,
         context: {
           post: node,

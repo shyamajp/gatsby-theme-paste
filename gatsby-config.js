@@ -1,5 +1,6 @@
 module.exports = ({ contentPath = "content", basePath = "/" }) => ({
   plugins: [
+    "gatsby-plugin-react-helmet",
     "gatsby-plugin-sharp",
     "gatsby-remark-images",
     "gatsby-transformer-sharp",

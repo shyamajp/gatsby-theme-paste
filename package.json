@@ -14,6 +14,7 @@
     "react-dom": "^17.0.2"
   },
   "devDependencies": {
+    "@types/react-helmet": "^6.1.5",
     "gatsby": "^4.4.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
@@ -25,6 +26,7 @@
     "gatsby-plugin-local-search": "^2.0.1",
     "gatsby-plugin-mdx": "^3.4.0",
     "gatsby-plugin-page-creator": "^4.4.0",
+    "gatsby-plugin-react-helmet": "^5.4.0",
     "gatsby-plugin-sharp": "^4.4.0",
     "gatsby-remark-images": "^6.4.0",
     "gatsby-remark-prismjs": "^6.4.0",
@@ -33,6 +35,7 @@
     "gatsby-transformer-yaml": "^4.4.0",
     "prismjs": "^1.25.0",
     "query-string": "^7.0.1",
+    "react-helmet": "^6.1.0",
     "react-use-flexsearch": "^0.1.1"
   }
 }
