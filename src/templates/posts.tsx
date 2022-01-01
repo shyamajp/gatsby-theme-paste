@@ -10,10 +10,10 @@ const PostsTemplate = ({ data }) => {
   return (
     <Layout>
       <ul>
-        {edges.map(({ node: { frontmatter } }: { node: Partial<Post> }) => {
+        {edges.map(({ node: post }: { node: Partial<Post> }) => {
           return (
-            <li key={frontmatter.slug}>
-              <Link to={`/blog/${frontmatter.slug}`}>{frontmatter.title}</Link> on {frontmatter.date}
+            <li key={post.frontmatter.slug}>
+              <Link to={`/blog/${post.frontmatter.slug}`}>{post.frontmatter.title}</Link> on {post.frontmatter.date}
             </li>
           );
         })}
@@ -25,17 +25,9 @@ const PostsTemplate = ({ data }) => {
 export default PostsTemplate;
 
 export const pageQuery = graphql`
-  query blogListQuery($skip: Int!, $limit: Int!) {
+  query ($skip: Int!, $limit: Int!) {
     allMdx(sort: { fields: [frontmatter___date], order: DESC }, limit: $limit, skip: $skip) {
-      edges {
-        node {
-          frontmatter {
-            title
-            slug
-            date(formatString: "MMMM DD, YYYY")
-          }
-        }
-      }
+      ...PostSummary
     }
   }
 `;

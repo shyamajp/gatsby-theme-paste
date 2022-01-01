@@ -107,21 +107,21 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
     });
   });
 
-  posts.forEach(({ node }) => {
-    if (node.frontmatter.type === "post") {
+  posts.forEach(({ node: post }) => {
+    if (post.frontmatter.type === "post") {
       createPage({
-        path: `/blog/${node.frontmatter.slug}`,
+        path: `/blog/${post.frontmatter.slug}`,
         component: postTemplate,
         context: {
-          post: node,
+          post: post,
         },
       });
     } else {
       createPage({
-        path: node.frontmatter.slug,
+        path: post.frontmatter.slug,
         component: pageTemplate,
         context: {
-          post: node,
+          post: post,
         },
       });
     }

@@ -8,7 +8,7 @@ const CategoriesPage = ({ data }) => {
 
   return (
     <Layout>
-      <h1>Tags</h1>
+      <h1>Categories</h1>
       <ul>
         {categories.map((category) => (
           <li key={category.fieldValue}>
@@ -28,8 +28,7 @@ export const pageQuery = graphql`
   query {
     allMdx(limit: 2000) {
       group(field: frontmatter___categories) {
-        fieldValue
-        totalCount
+        ...PostGroup
       }
     }
   }
