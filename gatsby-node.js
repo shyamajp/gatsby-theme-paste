@@ -34,15 +34,23 @@ exports.createSchemaCustomization = ({ actions }) => {
 };
 
 exports.createPages = async ({ actions, graphql, reporter }, options) => {
+  const { createPage } = actions;
+
   const basePath = options.basePath || "/";
-  actions.createPage({
+
+  const postsTemplate = require.resolve("./src/templates/posts.tsx");
+  const postTemplate = require.resolve("./src/templates/post.tsx");
+  const tagsTemplate = require.resolve("./src/templates/tags.tsx");
+  const categoriesTemplate = require.resolve("./src/templates/categories.tsx");
+
+  createPage({
     path: basePath,
-    component: require.resolve("./src/templates/posts.tsx"),
+    component: postsTemplate,
   });
 
   const result = await graphql(`
     query {
-      allMdx {
+      posts: allMdx {
         nodes {
           tableOfContents
           timeToRead
@@ -57,7 +65,21 @@ exports.createPages = async ({ actions, graphql, reporter }, options) => {
               }
             }
             type
+            tags
+            categories
           }
+        }
+      }
+      tags: allMdx {
+        group(field: frontmatter___tags) {
+          fieldValue
+          totalCount
+        }
+      }
+      categories: allMdx {
+        group(field: frontmatter___categories) {
+          fieldValue
+          totalCount
         }
       }
     }
@@ -68,13 +90,36 @@ exports.createPages = async ({ actions, graphql, reporter }, options) => {
     return;
   }
 
-  const posts = result.data.allMdx.nodes;
+  const posts = result.data.posts.nodes;
+  const tags = result.data.tags.group;
+  const categories = result.data.categories.group;
+
   posts.forEach((node) => {
-    actions.createPage({
+    createPage({
       path: node.frontmatter.type === "post" ? `/blog/${node.frontmatter.slug}` : node.frontmatter.slug,
-      component: require.resolve("./src/templates/post.tsx"),
+      component: postTemplate,
       context: {
         post: node,
+      },
+    });
+  });
+
+  tags.forEach((tag) => {
+    createPage({
+      path: `/tags/${tag.fieldValue}/`,
+      component: tagsTemplate,
+      context: {
+        tag: tag.fieldValue,
+      },
+    });
+  });
+
+  categories.forEach((category) => {
+    createPage({
+      path: `/categories/${category.fieldValue}/`,
+      component: categoriesTemplate,
+      context: {
+        category: category.fieldValue,
       },
     });
   });
