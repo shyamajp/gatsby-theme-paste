@@ -1,18 +1,26 @@
 import { graphql } from "gatsby";
 import { ImageDataLike } from "gatsby-plugin-image";
 
-interface PostFrontmatter {
+interface PageFrontmatter {
   date: number;
   slug: string;
   title: string;
-  type: string;
+  featuredImage?: ImageDataLike;
+}
+
+interface PostFrontmatter extends PageFrontmatter {
   tags?: string[];
   categories?: string[];
-  featuredImage?: ImageDataLike;
   draft?: boolean;
 }
 
+export interface Page {
+  frontmatter: PostFrontmatter;
+  body: string;
+}
+
 export interface Post {
+  tableOfContents: object;
   frontmatter: PostFrontmatter;
   body: string;
   timeToRead?: string;

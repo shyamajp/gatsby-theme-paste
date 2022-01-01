@@ -10,7 +10,7 @@ const PostsTemplate = ({ data }) => {
   return (
     <Layout>
       <ul>
-        {edges.map(({ node: post }: { node: Partial<Post> }) => {
+        {edges.map(({ node: post }: { node: Pick<Post, "frontmatter"> }) => {
           return (
             <li key={post.frontmatter.slug}>
               <Link to={`/blog/${post.frontmatter.slug}`}>{post.frontmatter.title}</Link> on {post.frontmatter.date}
@@ -26,7 +26,7 @@ export default PostsTemplate;
 
 export const pageQuery = graphql`
   query ($skip: Int!, $limit: Int!) {
-    allMdx(sort: { fields: [frontmatter___date], order: DESC }, limit: $limit, skip: $skip) {
+    allMdx(sort: { fields: [frontmatter___date], order: DESC }, limit: $limit, skip: $skip, filter: { frontmatter: { type: { eq: "post" } } }) {
       ...PostSummary
     }
   }

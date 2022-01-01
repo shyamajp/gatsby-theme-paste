@@ -4,19 +4,20 @@ import { MDXRenderer } from "gatsby-plugin-mdx";
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import { MDXProvider } from "@mdx-js/react";
 
-import Layout from "../components/layout";
-import { Post } from "../queries/post";
+import { Page } from "../queries/post";
 
-const PageTemplate = ({ pageContext: { post } }: { pageContext: { post: Partial<Post> } }) => {
+import Layout from "../components/layout";
+
+const PageTemplate = ({ pageContext: { page } }: { pageContext: { page: Page } }) => {
   const shortcodes = { Link };
-  const image = getImage(post.frontmatter.featuredImage);
+  const image = getImage(page.frontmatter.featuredImage);
 
   return (
     <Layout>
-      <h1>{post.frontmatter.title}</h1>
-      <GatsbyImage image={image} alt={post.frontmatter.title} />
+      <h1>{page.frontmatter.title}</h1>
+      <GatsbyImage image={image} alt={page.frontmatter.title} />
       <MDXProvider components={shortcodes}>
-        <MDXRenderer frontmatter={post.frontmatter}>{post.body}</MDXRenderer>
+        <MDXRenderer frontmatter={page.frontmatter}>{page.body}</MDXRenderer>
       </MDXProvider>
     </Layout>
   );

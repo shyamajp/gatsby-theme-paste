@@ -44,7 +44,7 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
 
   const result = await graphql(`
     query {
-      posts: allMdx {
+      posts: allMdx(sort: { order: DESC, fields: [frontmatter___date] }, filter: { frontmatter: { type: { eq: "post" } } }) {
         edges {
           node {
             tableOfContents
@@ -59,9 +59,26 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
                   gatsbyImageData(width: 800, placeholder: BLURRED)
                 }
               }
-              type
               tags
               categories
+            }
+          }
+        }
+        totalCount
+      }
+      pages: allMdx(filter: { frontmatter: { type: { ne: "post" } } }) {
+        edges {
+          node {
+            body
+            frontmatter {
+              date
+              slug
+              title
+              featuredImage {
+                childImageSharp {
+                  gatsbyImageData(width: 800, placeholder: BLURRED)
+                }
+              }
             }
           }
         }
@@ -87,6 +104,7 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
   }
 
   const posts = result.data.posts.edges;
+  const pages = result.data.pages.edges;
   const tags = result.data.tags.group;
   const categories = result.data.categories.group;
 
@@ -103,28 +121,29 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
         skip: i * postsPerPage,
         numPages,
         currentPage: i + 1,
+        posts,
       },
     });
   });
 
   posts.forEach(({ node: post }) => {
-    if (post.frontmatter.type === "post") {
-      createPage({
-        path: `/blog/${post.frontmatter.slug}`,
-        component: postTemplate,
-        context: {
-          post: post,
-        },
-      });
-    } else {
-      createPage({
-        path: post.frontmatter.slug,
-        component: pageTemplate,
-        context: {
-          post: post,
-        },
-      });
-    }
+    createPage({
+      path: `/blog/${post.frontmatter.slug}`,
+      component: postTemplate,
+      context: {
+        post,
+      },
+    });
+  });
+
+  pages.forEach(({ node: page }) => {
+    createPage({
+      path: page.frontmatter.slug,
+      component: pageTemplate,
+      context: {
+        page,
+      },
+    });
   });
 
   tags.forEach((tag) => {
