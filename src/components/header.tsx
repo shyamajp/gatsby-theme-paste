@@ -9,7 +9,7 @@ const Header = ({ title, menuLinks }: Partial<SiteMetadata>) => {
       <h1>{title}</h1>
       <ul>
         {menuLinks.map((menuLink) => (
-          <Link to={`/${menuLink.link}`} key={menuLink.link}>
+          <Link to={menuLink.link} key={menuLink.link}>
             {menuLink.name}
           </Link>
         ))}
