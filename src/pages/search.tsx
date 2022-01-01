@@ -25,7 +25,7 @@ const Blog = ({ data }) => {
       <ul>
         {results.map(({ id, slug, title }) => (
           <li key={id}>
-            <Link to={slug}>{title}</Link>
+            <Link to={`/blog/${slug}`}>{title}</Link>
           </li>
         ))}
       </ul>

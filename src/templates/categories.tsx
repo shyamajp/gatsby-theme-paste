@@ -16,7 +16,7 @@ const Categories = ({ pageContext, data }) => {
           const { title, slug } = post.frontmatter;
           return (
             <li key={slug}>
-              <Link to={slug}>{title}</Link>
+              <Link to={`/blog/${slug}`}>{title}</Link>
             </li>
           );
         })}
