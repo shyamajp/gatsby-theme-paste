@@ -1,4 +1,5 @@
 import { useStaticQuery, graphql } from "gatsby";
+import { ImageDataLike } from "gatsby-plugin-image";
 
 type MenuLinks = {
   name: string;
@@ -19,10 +20,20 @@ export interface SiteMetadata {
   siteUrl: string;
 }
 
-export const useSiteMetadata = (): SiteMetadata => {
-  const { site } = useStaticQuery(
+interface UseSiteMetadata {
+  siteMetadata: SiteMetadata;
+  avatar: ImageDataLike;
+}
+
+export const useSiteMetadata = (): UseSiteMetadata => {
+  const { site, avatar } = useStaticQuery(
     graphql`
       query {
+        avatar: file(absolutePath: { regex: "/avatar.(jpg|png)$/" }) {
+          childImageSharp {
+            gatsbyImageData(width: 100, placeholder: BLURRED)
+          }
+        }
         site {
           siteMetadata {
             title
@@ -40,5 +51,5 @@ export const useSiteMetadata = (): SiteMetadata => {
       }
     `
   );
-  return site.siteMetadata;
+  return { siteMetadata: site.siteMetadata, avatar };
 };
