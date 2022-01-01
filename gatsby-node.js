@@ -36,37 +36,33 @@ exports.createSchemaCustomization = ({ actions }) => {
 exports.createPages = async ({ actions, graphql, reporter }, options) => {
   const { createPage } = actions;
 
-  const basePath = options.basePath || "/";
-
   const postsTemplate = require.resolve("./src/templates/posts.tsx");
   const postTemplate = require.resolve("./src/templates/post.tsx");
+  const pageTemplate = require.resolve("./src/templates/page.tsx");
   const tagsTemplate = require.resolve("./src/templates/tags.tsx");
   const categoriesTemplate = require.resolve("./src/templates/categories.tsx");
-
-  createPage({
-    path: basePath,
-    component: postsTemplate,
-  });
 
   const result = await graphql(`
     query {
       posts: allMdx {
-        nodes {
-          tableOfContents
-          timeToRead
-          body
-          frontmatter {
-            date
-            slug
-            title
-            featuredImage {
-              childImageSharp {
-                gatsbyImageData(width: 800, placeholder: BLURRED)
+        edges {
+          node {
+            tableOfContents
+            timeToRead
+            body
+            frontmatter {
+              date
+              slug
+              title
+              featuredImage {
+                childImageSharp {
+                  gatsbyImageData(width: 800, placeholder: BLURRED)
+                }
               }
+              type
+              tags
+              categories
             }
-            type
-            tags
-            categories
           }
         }
       }
@@ -90,18 +86,45 @@ exports.createPages = async ({ actions, graphql, reporter }, options) => {
     return;
   }
 
-  const posts = result.data.posts.nodes;
+  const posts = result.data.posts.edges;
   const tags = result.data.tags.group;
   const categories = result.data.categories.group;
 
-  posts.forEach((node) => {
+  // TODO: Add this to config
+  const postsPerPage = 2;
+  const numPages = Math.ceil(posts.length / postsPerPage);
+
+  Array.from({ length: numPages }).forEach((_, i) => {
     createPage({
-      path: node.frontmatter.type === "post" ? `/blog/${node.frontmatter.slug}` : node.frontmatter.slug,
-      component: postTemplate,
+      path: i === 0 ? `/` : `/blog/${i + 1}`,
+      component: postsTemplate,
       context: {
-        post: node,
+        limit: postsPerPage,
+        skip: i * postsPerPage,
+        numPages,
+        currentPage: i + 1,
       },
     });
+  });
+
+  posts.forEach(({ node }) => {
+    if (node.frontmatter.type === "post") {
+      createPage({
+        path: node.frontmatter.slug,
+        component: postTemplate,
+        context: {
+          post: node,
+        },
+      });
+    } else {
+      createPage({
+        path: node.frontmatter.slug,
+        component: pageTemplate,
+        context: {
+          post: node,
+        },
+      });
+    }
   });
 
   tags.forEach((tag) => {
