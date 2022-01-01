@@ -38,5 +38,39 @@ module.exports = ({ contentPath = "content", basePath = "/" }) => ({
         path: `${__dirname}/src/pages`,
       },
     },
+    {
+      resolve: "gatsby-plugin-local-search",
+      options: {
+        name: "blog",
+        engine: "flexsearch",
+        engineOptions: {
+          encode: "icase",
+          tokenize: "forward",
+          async: false,
+        },
+        query: `
+          {
+            allMdx {
+              nodes {
+                id
+                frontmatter {
+                  title
+                  slug
+                }
+              }
+            }
+          }
+        `,
+        ref: "id",
+        index: ["title", "slug"],
+        store: ["id", "title", "slug"],
+        normalizer: ({ data }) =>
+          data.allMdx.nodes.map((node) => ({
+            id: node.id,
+            title: node.frontmatter.title,
+            slug: node.frontmatter.slug,
+          })),
+      },
+    },
   ],
 });
