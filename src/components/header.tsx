@@ -3,7 +3,7 @@ import { Link } from "gatsby";
 
 import { SiteMetadata } from "../queries/siteMetadata";
 
-const Header = ({ title, menuLinks }: Partial<SiteMetadata>) => {
+const Header = ({ title, menuLinks }: Pick<SiteMetadata, "title" | "menuLinks">) => {
   return (
     <div>
       <h1>{title}</h1>

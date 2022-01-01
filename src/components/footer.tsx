@@ -3,7 +3,7 @@ import { Link } from "gatsby";
 
 import { SiteMetadata } from "../queries/siteMetadata";
 
-const Footer = ({ title, author, social }: Partial<SiteMetadata>) => {
+const Footer = ({ title, author, social }: Pick<SiteMetadata, "title" | "author" | "social">) => {
   return (
     <div>
       <span>

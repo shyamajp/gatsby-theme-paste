@@ -1,13 +1,18 @@
 import React from "react";
 import { Helmet } from "react-helmet";
 import { useLocation } from "@reach/router";
-import { useStaticQuery, graphql } from "gatsby";
 
-const SEO = ({ title, description, image }) => {
+import { useSiteMetadata } from "../queries/siteMetadata";
+
+type Props = {
+  title: string;
+  description: string;
+  image?: string;
+};
+
+const SEO = ({ title, description, image }: Props) => {
   const { pathname } = useLocation();
-  const { site } = useStaticQuery(query);
-
-  const { defaultTitle, defaultDescription, siteUrl } = site.siteMetadata;
+  const { title: defaultTitle, description: defaultDescription, siteUrl } = useSiteMetadata();
 
   const seo = {
     title: title || defaultTitle,
@@ -37,15 +42,3 @@ const SEO = ({ title, description, image }) => {
 };
 
 export default SEO;
-
-const query = graphql`
-  query SEO {
-    site {
-      siteMetadata {
-        defaultTitle: title
-        defaultDescription: description
-        siteUrl
-      }
-    }
-  }
-`;
