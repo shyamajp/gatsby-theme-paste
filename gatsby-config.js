@@ -1,4 +1,4 @@
-module.exports = ({ contentPath = "content", basePath = "/" }) => ({
+module.exports = ({ contentPath = "content" }) => ({
   plugins: [
     "gatsby-plugin-react-helmet",
     "gatsby-plugin-sharp",
@@ -7,7 +7,7 @@ module.exports = ({ contentPath = "content", basePath = "/" }) => ({
     {
       resolve: "gatsby-source-filesystem",
       options: {
-        path: "content",
+        path: contentPath,
       },
     },
     {

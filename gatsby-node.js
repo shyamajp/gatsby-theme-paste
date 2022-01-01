@@ -33,7 +33,7 @@ exports.createSchemaCustomization = ({ actions }) => {
     `);
 };
 
-exports.createPages = async ({ actions, graphql, reporter }, options) => {
+exports.createPages = async ({ actions, graphql, reporter }) => {
   const { createPage } = actions;
 
   const postsTemplate = require.resolve("./src/templates/posts.tsx");
