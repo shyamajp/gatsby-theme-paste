@@ -12,7 +12,9 @@ type Props = {
 
 const SEO = ({ title, description, image }: Props) => {
   const { pathname } = useLocation();
-  const { title: defaultTitle, description: defaultDescription, siteUrl } = useSiteMetadata();
+  const {
+    siteMetadata: { title: defaultTitle, description: defaultDescription, siteUrl },
+  } = useSiteMetadata();
 
   const seo = {
     title: title || defaultTitle,
