@@ -1,25 +1,32 @@
 import React from "react";
-import { Link } from "gatsby";
+import { Box } from "@twilio-paste/box";
+import { Anchor } from "@twilio-paste/anchor";
+import { Heading } from "@twilio-paste/heading";
 
 import { SiteMetadata } from "../queries/siteMetadata";
 
 import { Search } from "./search";
+import { PasteLink } from "./common";
 
 type Props = Pick<SiteMetadata, "title" | "menuLinks">;
 
 const Header = ({ title, menuLinks }: Props) => {
   return (
-    <div>
-      <h1>{title}</h1>
+    <Box>
+      <PasteLink to="/">
+        <Heading variant="heading10" as="h1">
+          {title}
+        </Heading>
+      </PasteLink>
       <ul>
         {menuLinks.map((menuLink) => (
-          <Link to={menuLink.link} key={menuLink.link}>
+          <PasteLink to={menuLink.link} key={menuLink.link}>
             {menuLink.name}
-          </Link>
+          </PasteLink>
         ))}
       </ul>
       <Search />
-    </div>
+    </Box>
   );
 };
 

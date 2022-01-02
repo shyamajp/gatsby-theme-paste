@@ -1,10 +1,11 @@
 import React from "react";
-import { Link, graphql } from "gatsby";
+import { graphql } from "gatsby";
 
 import { Page } from "../queries/post";
 
 import Layout from "../components/layout";
 import { PageContext, PostData } from "../types";
+import { PasteLink } from "../components/common";
 
 type Props = PageContext<"tag", string> & PostData<Pick<Page, "frontmatter">>;
 
@@ -21,12 +22,12 @@ const Tags = ({ pageContext, data }: Props) => {
           const { title, slug } = post.frontmatter;
           return (
             <li key={slug}>
-              <Link to={`/blog/${slug}`}>{title}</Link>
+              <PasteLink to={`/blog/${slug}`}>{title}</PasteLink>
             </li>
           );
         })}
       </ul>
-      <Link to="/tags">see all tags</Link>
+      <PasteLink to="/tags">see all tags</PasteLink>
     </Layout>
   );
 };

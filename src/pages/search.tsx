@@ -1,9 +1,10 @@
 import React from "react";
-import { graphql, Link, navigate } from "gatsby";
+import { graphql, navigate } from "gatsby";
 import { useFlexSearch } from "react-use-flexsearch";
 import { parse } from "query-string";
 
 import Layout from "../components/layout";
+import { PasteLink } from "../components/common";
 
 const Blog = ({ data }) => {
   const { search } = parse(location.search);
@@ -25,7 +26,7 @@ const Blog = ({ data }) => {
       <ul>
         {results.map(({ id, slug, title }) => (
           <li key={id}>
-            <Link to={`/blog/${slug}`}>{title}</Link>
+            <PasteLink to={`/blog/${slug}`}>{title}</PasteLink>
           </li>
         ))}
       </ul>

@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "gatsby";
 import { MDXRenderer } from "gatsby-plugin-mdx";
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import { MDXProvider } from "@mdx-js/react";
@@ -8,11 +7,12 @@ import { PageContext } from "../types";
 import { Post } from "../queries/post";
 
 import Layout from "../components/layout";
+import { PasteLink } from "../components/common";
 
 type Props = PageContext<"post", Post>;
 
 const PostTemplate = ({ pageContext: { post } }: Props) => {
-  const shortcodes = { Link };
+  const shortcodes = { Link: PasteLink };
   const image = getImage(post.frontmatter.featuredImage);
 
   return (
@@ -23,14 +23,14 @@ const PostTemplate = ({ pageContext: { post } }: Props) => {
       <ul>
         {post.frontmatter.tags?.map((tag) => (
           <li>
-            <Link to={`/tags/${tag}`}>{tag}</Link>
+            <PasteLink to={`/tags/${tag}`}>{tag}</PasteLink>
           </li>
         ))}
       </ul>
       <h4>Categories</h4>
       <ul>
         {post.frontmatter.categories?.map((category) => (
-          <Link to={`/categories/${category}`}>{category}</Link>
+          <PasteLink to={`/categories/${category}`}>{category}</PasteLink>
         ))}
       </ul>
       <MDXProvider components={shortcodes}>

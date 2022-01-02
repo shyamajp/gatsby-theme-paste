@@ -1,10 +1,11 @@
 import React from "react";
-import { Link, graphql } from "gatsby";
+import { graphql } from "gatsby";
 
 import { PostGroupData } from "../types";
 import { sortByTotalCount } from "../utils";
 
 import Layout from "../components/layout";
+import { PasteLink } from "../components/common";
 
 type Props = PostGroupData;
 
@@ -17,9 +18,9 @@ const TagsPage = ({ data }: Props) => {
       <ul>
         {tags.sort(sortByTotalCount).map((tag) => (
           <li key={tag.fieldValue}>
-            <Link to={`/tags/${tag.fieldValue}/`}>
+            <PasteLink to={`/tags/${tag.fieldValue}/`}>
               {tag.fieldValue} ({tag.totalCount})
-            </Link>
+            </PasteLink>
           </li>
         ))}
       </ul>

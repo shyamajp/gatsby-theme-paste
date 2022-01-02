@@ -1,4 +1,5 @@
 import React from "react";
+import { Anchor } from "@twilio-paste/anchor";
 
 import { SiteMetadata } from "../queries/siteMetadata";
 
@@ -12,9 +13,9 @@ const Footer = ({ title, author, social }: Props) => {
       </span>
       <ul>
         {social.map((socialLink) => (
-          <a href={socialLink.url} key={socialLink.url} target="_blank">
+          <Anchor href={socialLink.url} key={socialLink.url} showExternal>
             {socialLink.name}
-          </a>
+          </Anchor>
         ))}
       </ul>
     </div>
