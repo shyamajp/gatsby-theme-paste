@@ -1,6 +1,7 @@
 import React from "react";
 import { Theme } from "@twilio-paste/theme";
 import { Box } from "@twilio-paste/box";
+import { Flex } from "@twilio-paste/flex";
 
 import { useSiteMetadata } from "../queries/siteMetadata";
 
@@ -17,16 +18,12 @@ export const Layout = ({ children }: Props) => {
 
   return (
     <Theme.Provider theme="default">
-      <Box>
-        <Header title={siteMetadata.title} menuLinks={siteMetadata.menuLinks} />
-      </Box>
-      <Box>
+      <Header title={siteMetadata.title} menuLinks={siteMetadata.menuLinks} />
+      <Flex grow>
         {children}
         <Bio author={siteMetadata.author} avatar={avatar} />
-      </Box>
-      <Box>
-        <Footer title={siteMetadata.title} author={siteMetadata.author} social={siteMetadata.social} />
-      </Box>
+      </Flex>
+      <Footer title={siteMetadata.title} author={siteMetadata.author} social={siteMetadata.social} menuLinks={siteMetadata.menuLinks} />
     </Theme.Provider>
   );
 };
