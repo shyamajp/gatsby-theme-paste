@@ -1,31 +1,94 @@
 import React from "react";
+
 import { Box } from "@twilio-paste/box";
-import { Anchor } from "@twilio-paste/anchor";
-import { Heading } from "@twilio-paste/heading";
+import { Stack } from "@twilio-paste/stack";
+import { Button } from "@twilio-paste/button";
+import { Text } from "@twilio-paste/text";
+import { Paragraph } from "@twilio-paste/paragraph";
+import { Flex } from "@twilio-paste/flex";
+import { Menu, MenuButton, MenuItem, useMenuState } from "@twilio-paste/menu";
+import { Modal, ModalHeader, ModalHeading, ModalBody } from "@twilio-paste/modal";
+import { SearchIcon } from "@twilio-paste/icons/esm/SearchIcon";
+import { MoreIcon } from "@twilio-paste/icons/esm/MoreIcon";
 
 import { SiteMetadata } from "../queries/siteMetadata";
 
 import { Search } from "./search";
 import { PasteLink } from "./common";
+import { useDevice } from "../hooks";
+import { navigate } from "gatsby";
 
 type Props = Pick<SiteMetadata, "title" | "menuLinks">;
 
 const Header = ({ title, menuLinks }: Props) => {
+  const [isOpen, setIsOpen] = React.useState<boolean>(false);
+  const menu = useMenuState();
+  const device = useDevice();
+
+  const handleOpen = () => setIsOpen(true);
+  const handleClose = () => setIsOpen(false);
+
+  if (device === "MOBILE") {
+    return (
+      <>
+        <Box backgroundColor="colorBackgroundBodyInverse" padding="space40">
+          <Flex vAlignContent="center" hAlignContent="between">
+            <MenuButton {...menu} variant="reset" size="reset">
+              <MoreIcon decorative={false} title="Show Menu" color="colorTextBrandInverse" />
+            </MenuButton>
+            <Menu {...menu} aria-label="Preferences">
+              {menuLinks.map((menuLink) => (
+                <MenuItem key={menuLink.link} {...menu} onClick={() => navigate(menuLink.link)}>
+                  {menuLink.name}
+                </MenuItem>
+              ))}
+            </Menu>
+            <PasteLink to="/">
+              <Text color="colorTextInverse" as="h1" fontSize="fontSize80">
+                {title}
+              </Text>
+            </PasteLink>
+            <Button variant="reset" size="reset" onClick={handleOpen}>
+              <SearchIcon decorative={false} title="Search" color="colorTextBrandInverse" />
+            </Button>
+          </Flex>
+        </Box>
+        <Modal isOpen={isOpen} size="default" ariaLabelledby="search-modal" onDismiss={handleClose}>
+          <ModalHeader>
+            <ModalHeading as="h3">Search</ModalHeading>
+          </ModalHeader>
+          <ModalBody>
+            <Flex vertical hAlignContent="center">
+              <Search />
+              <Paragraph>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque facilis rem quidem, repudiandae voluptate modi et possimus cumque voluptatibus hic, eum consequuntur assumenda. Vero a
+                eum illo explicabo, dignissimos dolores.
+              </Paragraph>
+            </Flex>
+          </ModalBody>
+        </Modal>
+      </>
+    );
+  }
   return (
-    <Box>
-      <PasteLink to="/">
-        <Heading variant="heading10" as="h1">
-          {title}
-        </Heading>
-      </PasteLink>
-      <ul>
-        {menuLinks.map((menuLink) => (
-          <PasteLink to={menuLink.link} key={menuLink.link}>
-            {menuLink.name}
-          </PasteLink>
-        ))}
-      </ul>
-      <Search />
+    <Box backgroundColor="colorBackgroundBodyInverse" padding="space40">
+      <Flex vAlignContent="center" hAlignContent="between">
+        <PasteLink to="/">
+          <Text color="colorTextInverse" as="h1" fontSize="fontSize80">
+            {title}
+          </Text>
+        </PasteLink>
+        <Stack orientation="horizontal" spacing="space40">
+          {menuLinks.map((menuLink) => (
+            <PasteLink to={menuLink.link} key={menuLink.link}>
+              <Text color="colorTextInverse" as="span" fontSize="fontSize40">
+                {menuLink.name}
+              </Text>
+            </PasteLink>
+          ))}
+          <Search />
+        </Stack>
+      </Flex>
     </Box>
   );
 };
