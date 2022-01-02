@@ -3,6 +3,8 @@ import { Link } from "gatsby";
 
 import { SiteMetadata } from "../queries/siteMetadata";
 
+import { Search } from "./search";
+
 type Props = Pick<SiteMetadata, "title" | "menuLinks">;
 
 const Header = ({ title, menuLinks }: Props) => {
@@ -16,6 +18,7 @@ const Header = ({ title, menuLinks }: Props) => {
           </Link>
         ))}
       </ul>
+      <Search />
     </div>
   );
 };
