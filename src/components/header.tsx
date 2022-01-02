@@ -28,7 +28,6 @@ const Header = ({ title, menuLinks }: Props) => {
   const handleOpen = () => setIsOpen(true);
   const handleClose = () => setIsOpen(false);
 
-  console.log(device);
   if (device < Device.L) {
     return (
       <>
