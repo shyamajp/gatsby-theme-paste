@@ -23,14 +23,14 @@ const PostTemplate = ({ pageContext: { post } }: Props) => {
       <ul>
         {post.frontmatter.tags?.map((tag) => (
           <li>
-            <PasteLink to={`/tags/${tag}`}>{tag}</PasteLink>
+            <PasteLink to={`/tags/${tag.toLowerCase()}`}>{tag}</PasteLink>
           </li>
         ))}
       </ul>
       <h4>Categories</h4>
       <ul>
         {post.frontmatter.categories?.map((category) => (
-          <PasteLink to={`/categories/${category}`}>{category}</PasteLink>
+          <PasteLink to={`/categories/${category.toLowerCase()}`}>{category}</PasteLink>
         ))}
       </ul>
       <MDXProvider components={shortcodes}>

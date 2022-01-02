@@ -18,7 +18,7 @@ const CategoriesPage = ({ data }: Props) => {
       <ul>
         {categories.sort(sortByTotalCount).map((category) => (
           <li key={category.fieldValue}>
-            <PasteLink to={`/categories/${category.fieldValue}/`}>
+            <PasteLink to={`/categories/${category.fieldValue.toLowerCase()}/`}>
               {category.fieldValue} ({category.totalCount})
             </PasteLink>
           </li>

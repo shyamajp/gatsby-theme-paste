@@ -7,7 +7,7 @@ import { Post } from "../queries/post";
 import Layout from "../components/layout";
 import { PasteLink } from "../components/common";
 
-type Props = PostData<Pick<Post, "frontmatter">>;
+type Props = PostData<Pick<Post, "frontmatter" | "fields" | "excerpt">>;
 
 const PostsTemplate = ({ data }: Props) => {
   const edges = data.allMdx.edges;
@@ -15,10 +15,10 @@ const PostsTemplate = ({ data }: Props) => {
   return (
     <Layout>
       <ul>
-        {edges.map(({ node: post }: { node: Pick<Post, "frontmatter"> }) => {
+        {edges.map(({ node: post }) => {
           return (
-            <li key={post.frontmatter.slug}>
-              <PasteLink to={`/blog/${post.frontmatter.slug}`}>{post.frontmatter.title}</PasteLink> on {post.frontmatter.date}
+            <li key={post.fields.slug}>
+              <PasteLink to={`/blog/${post.fields.slug}`}>{post.frontmatter.title}</PasteLink> on {post.frontmatter.date}
             </li>
           );
         })}

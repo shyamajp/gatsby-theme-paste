@@ -7,7 +7,7 @@ import { Post } from "../queries/post";
 import Layout from "../components/layout";
 import { PasteLink } from "../components/common";
 
-type Props = PageContext<"category", string> & PostData<Pick<Post, "frontmatter">>;
+type Props = PageContext<"category", string> & PostData<Pick<Post, "frontmatter" | "fields" | "excerpt">>;
 
 const Categories = ({ pageContext, data }: Props) => {
   const { category } = pageContext;
@@ -19,7 +19,8 @@ const Categories = ({ pageContext, data }: Props) => {
       <h1>{categoryHeader}</h1>
       <ul>
         {edges.map(({ node: post }) => {
-          const { title, slug } = post.frontmatter;
+          const { title } = post.frontmatter;
+          const { slug } = post.fields;
           return (
             <li key={slug}>
               <PasteLink to={`/blog/${slug}`}>{title}</PasteLink>
@@ -36,7 +37,7 @@ export default Categories;
 
 export const pageQuery = graphql`
   query ($category: String) {
-    allMdx(limit: 2000, sort: { fields: [frontmatter___date], order: DESC }, filter: { frontmatter: { categories: { in: [$category] } } }) {
+    allMdx(limit: 2000, sort: { fields: [frontmatter___date], order: DESC }, filter: { frontmatter: { categories: { in: [$category] }, type: { eq: "post" } } }) {
       ...PostSummary
     }
   }

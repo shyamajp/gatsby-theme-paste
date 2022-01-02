@@ -18,7 +18,7 @@ const TagsPage = ({ data }: Props) => {
       <ul>
         {tags.sort(sortByTotalCount).map((tag) => (
           <li key={tag.fieldValue}>
-            <PasteLink to={`/tags/${tag.fieldValue}/`}>
+            <PasteLink to={`/tags/${tag.fieldValue.toLowerCase()}/`}>
               {tag.fieldValue} ({tag.totalCount})
             </PasteLink>
           </li>

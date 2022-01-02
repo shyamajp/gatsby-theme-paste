@@ -1,9 +1,12 @@
 import { graphql } from "gatsby";
 import { ImageDataLike } from "gatsby-plugin-image";
 
+type PageFields = {
+  slug: string;
+};
+
 type PageFrontmatter = {
   date: number;
-  slug: string;
   title: string;
   featuredImage?: ImageDataLike;
 };
@@ -11,25 +14,26 @@ type PageFrontmatter = {
 type PostFrontmatter = PageFrontmatter & {
   tags?: string[];
   categories?: string[];
-  draft?: boolean;
 };
 
 export type Page = {
+  fields: PageFields;
   frontmatter: PostFrontmatter;
   body: string;
+  excerpt: string;
 };
 
 export type Post = {
-  tableOfContents: object;
+  fields: PageFields;
   frontmatter: PostFrontmatter;
   body: string;
-  timeToRead?: string;
+  timeToRead: number;
+  excerpt: string;
 };
 
 export const postFragments = graphql`
   fragment PostFrontmatter on MdxFrontmatter {
     title
-    slug
     tags
     categories
     date(formatString: "MMMM DD, YYYY")
@@ -41,6 +45,10 @@ export const postFragments = graphql`
         frontmatter {
           ...PostFrontmatter
         }
+        fields {
+          slug
+        }
+        excerpt
       }
     }
   }

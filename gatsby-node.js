@@ -1,4 +1,5 @@
 const fs = require("fs");
+const { createFilePath } = require("gatsby-source-filesystem");
 
 exports.onPreBootstrap = ({ reporter }, options) => {
   const contentPath = options.contentPath;
@@ -19,10 +20,13 @@ exports.createSchemaCustomization = ({ actions }) => {
   createTypes(`
     type Mdx implements Node {
       frontmatter: MdxFrontmatter!
+      fields: MdxFields!
+    }
+    type MdxFields {
+      slug: String!
     }
     type MdxFrontmatter {
       date: Date! @dateformat
-      slug: String!
       title: String!
       draft: Boolean
       type: String!
@@ -31,6 +35,30 @@ exports.createSchemaCustomization = ({ actions }) => {
       categories: [String]
     }
     `);
+};
+
+exports.onCreateNode = ({ node, getNode, actions }) => {
+  const { createNodeField } = actions;
+
+  if (node.internal.type === "Mdx") {
+    const filePath = createFilePath({ node, getNode, basePath: "posts", trailingSlash: false });
+
+    const slugify = (text) => {
+      const lastPath = text.substring(text.lastIndexOf("/") + 1) || text;
+
+      return lastPath
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, "-") // replace non-alphanumerical characters with hyphens
+        .replace(/(^-|-$)+/g, "") // remove leading or trailing hyphens
+        .replace(/\/\/+/g, "/"); // remove consecutive slashes
+    };
+
+    createNodeField({
+      node,
+      name: "slug",
+      value: slugify(filePath),
+    });
+  }
 };
 
 exports.createPages = async ({ actions, graphql, reporter }) => {
@@ -47,12 +75,14 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
       posts: allMdx(sort: { order: DESC, fields: [frontmatter___date] }, filter: { frontmatter: { type: { eq: "post" } } }) {
         edges {
           node {
-            tableOfContents
+            excerpt
+            fields {
+              slug
+            }
             timeToRead
             body
             frontmatter {
               date
-              slug
               title
               featuredImage {
                 childImageSharp {
@@ -69,10 +99,13 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
       pages: allMdx(filter: { frontmatter: { type: { ne: "post" } } }) {
         edges {
           node {
+            excerpt
+            fields {
+              slug
+            }
             body
             frontmatter {
               date
-              slug
               title
               featuredImage {
                 childImageSharp {
@@ -128,7 +161,7 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
 
   posts.forEach(({ node: post }) => {
     createPage({
-      path: `/blog/${post.frontmatter.slug}`,
+      path: `/blog/${post.fields.slug}`,
       component: postTemplate,
       context: {
         post,
@@ -138,7 +171,7 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
 
   pages.forEach(({ node: page }) => {
     createPage({
-      path: page.frontmatter.slug,
+      path: page.fields.slug,
       component: pageTemplate,
       context: {
         page,
@@ -148,7 +181,7 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
 
   tags.forEach((tag) => {
     createPage({
-      path: `/tags/${tag.fieldValue}/`,
+      path: `/tags/${tag.fieldValue.toLowerCase()}/`,
       component: tagsTemplate,
       context: {
         tag: tag.fieldValue,
@@ -158,7 +191,7 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
 
   categories.forEach((category) => {
     createPage({
-      path: `/categories/${category.fieldValue}/`,
+      path: `/categories/${category.fieldValue.toLowerCase()}/`,
       component: categoriesTemplate,
       context: {
         category: category.fieldValue,

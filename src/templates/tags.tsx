@@ -7,7 +7,7 @@ import Layout from "../components/layout";
 import { PageContext, PostData } from "../types";
 import { PasteLink } from "../components/common";
 
-type Props = PageContext<"tag", string> & PostData<Pick<Page, "frontmatter">>;
+type Props = PageContext<"tag", string> & PostData<Pick<Page, "frontmatter" | "fields" | "excerpt">>;
 
 const Tags = ({ pageContext, data }: Props) => {
   const { tag } = pageContext;
@@ -19,7 +19,8 @@ const Tags = ({ pageContext, data }: Props) => {
       <h1>{tagHeader}</h1>
       <ul>
         {edges.map(({ node: post }) => {
-          const { title, slug } = post.frontmatter;
+          const { title } = post.frontmatter;
+          const { slug } = post.fields;
           return (
             <li key={slug}>
               <PasteLink to={`/blog/${slug}`}>{title}</PasteLink>
@@ -36,7 +37,7 @@ export default Tags;
 
 export const pageQuery = graphql`
   query ($tag: String) {
-    allMdx(limit: 2000, sort: { fields: [frontmatter___date], order: DESC }, filter: { frontmatter: { tags: { in: [$tag] } } }) {
+    allMdx(limit: 2000, sort: { fields: [frontmatter___date], order: DESC }, filter: { frontmatter: { tags: { in: [$tag] }, type: { eq: "post" } } }) {
       ...PostSummary
     }
   }

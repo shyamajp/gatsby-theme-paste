@@ -54,22 +54,30 @@ module.exports = ({ contentPath = "content" }) => ({
             allMdx {
               nodes {
                 id
-                frontmatter {
-                  title
+                fields {
                   slug
                 }
+                frontmatter {
+                  title
+                  date(formatString: "MMMM DD, YYYY")
+                }
+                excerpt
+                body
               }
             }
           }
         `,
         ref: "id",
-        index: ["title", "slug"],
-        store: ["id", "title", "slug"],
+        index: ["title", "body"],
+        store: ["id", "title", "slug", "date", "exerpt"],
         normalizer: ({ data }) =>
           data.allMdx.nodes.map((node) => ({
             id: node.id,
             title: node.frontmatter.title,
-            slug: node.frontmatter.slug,
+            slug: node.fields.slug,
+            date: node.frontmatter.date,
+            exerpt: node.excerpt,
+            body: node.body,
           })),
       },
     },
