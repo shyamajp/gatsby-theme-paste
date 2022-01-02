@@ -11,19 +11,19 @@ type Social = {
   url: string;
 };
 
-export interface SiteMetadata {
+export type SiteMetadata = {
   title: string;
   description: string;
   author: string;
   menuLinks: MenuLinks[];
   social: Social[];
   siteUrl: string;
-}
+};
 
-export interface UseSiteMetadata {
+export type UseSiteMetadata = {
   siteMetadata: SiteMetadata;
   avatar: ImageDataLike;
-}
+};
 
 export const useSiteMetadata = (): UseSiteMetadata => {
   const { site, avatar } = useStaticQuery(

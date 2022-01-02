@@ -1,33 +1,25 @@
-export interface PageContext<K extends PropertyKey, V> {
+export type PageContext<K extends PropertyKey, V> = {
   pageContext: {
     [key in K]: V;
   };
-}
+};
 
-interface Data<T> {
+type AllMdxData<T> = {
   data: {
     allMdx: T;
   };
-}
+};
 
-export interface PostData<T> {
-  data: {
-    allMdx: {
-      edges: {
-        node: T;
-      }[];
-      totalCount: number;
-    };
-  };
-}
+export type PostData<T> = AllMdxData<{
+  edges: {
+    node: T;
+  }[];
+  totalCount: number;
+}>;
 
-export interface PostGroupData {
-  data: {
-    allMdx: {
-      group: {
-        fieldValue: string;
-        totalCount: number;
-      }[];
-    };
-  };
-}
+export type PostGroupData = AllMdxData<{
+  group: {
+    fieldValue: string;
+    totalCount: number;
+  }[];
+}>;
