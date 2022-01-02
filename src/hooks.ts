@@ -2,12 +2,17 @@ import React from "react";
 
 // https://github.com/twilio-labs/paste/discussions/1552
 const BREAKPOINTS: Record<string, number> = {
-  MOBILE: 400,
-  TABLET: 1024,
-  PC: 1232,
+  S: 400,
+  M: 1024,
+  L: 1232,
 };
 
-type Device = keyof typeof BREAKPOINTS;
+export enum Device {
+  S,
+  M,
+  L,
+  XL,
+}
 
 export const useDevice = () => {
   const [width, setWidth] = React.useState(undefined);
@@ -18,12 +23,14 @@ export const useDevice = () => {
 
     window.addEventListener("resize", handleResize);
 
-    if (width > BREAKPOINTS.PC) {
-      setDevice("PC");
-    } else if (width > BREAKPOINTS.TABLET) {
-      setDevice("TABLET");
+    if (width < BREAKPOINTS.S) {
+      setDevice(Device.S);
+    } else if (width < BREAKPOINTS.M) {
+      setDevice(Device.M);
+    } else if (width < BREAKPOINTS.L) {
+      setDevice(Device.L);
     } else {
-      setDevice("MOBILE");
+      setDevice(Device.XL);
     }
 
     return () => {

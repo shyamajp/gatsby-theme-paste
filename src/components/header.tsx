@@ -1,4 +1,5 @@
 import React from "react";
+import { navigate } from "gatsby";
 
 import { Box } from "@twilio-paste/box";
 import { Stack } from "@twilio-paste/stack";
@@ -15,8 +16,7 @@ import { SiteMetadata } from "../queries/siteMetadata";
 
 import { Search } from "./search";
 import { PasteLink } from "./common";
-import { useDevice } from "../hooks";
-import { navigate } from "gatsby";
+import { Device, useDevice } from "../hooks";
 
 type Props = Pick<SiteMetadata, "title" | "menuLinks">;
 
@@ -28,7 +28,8 @@ const Header = ({ title, menuLinks }: Props) => {
   const handleOpen = () => setIsOpen(true);
   const handleClose = () => setIsOpen(false);
 
-  if (device === "MOBILE") {
+  console.log(device);
+  if (device < Device.L) {
     return (
       <>
         <Box backgroundColor="colorBackgroundBodyInverse" padding="space40">
