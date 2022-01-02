@@ -1,11 +1,14 @@
 import React from "react";
 import { Link, graphql } from "gatsby";
 
+import { PostGroupData } from "../types";
 import { sortByTotalCount } from "../utils";
 
 import Layout from "../components/layout";
 
-const TagsPage = ({ data }) => {
+type Props = PostGroupData;
+
+const TagsPage = ({ data }: Props) => {
   const tags = data.allMdx.group;
 
   return (

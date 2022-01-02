@@ -1,10 +1,14 @@
 import React from "react";
 import { graphql, Link } from "gatsby";
 
-import Layout from "../components/layout";
+import { PostData } from "../types";
 import { Post } from "../queries/post";
 
-const PostsTemplate = ({ data }) => {
+import Layout from "../components/layout";
+
+type Props = PostData<Pick<Post, "frontmatter">>;
+
+const PostsTemplate = ({ data }: Props) => {
   const edges = data.allMdx.edges;
 
   return (

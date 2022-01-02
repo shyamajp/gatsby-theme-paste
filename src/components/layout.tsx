@@ -6,7 +6,11 @@ import Header from "./header";
 import Footer from "./footer";
 import Bio from "./bio";
 
-export const Layout = ({ children }) => {
+type Props = {
+  children: React.ReactNode;
+};
+
+export const Layout = ({ children }: Props) => {
   const { siteMetadata, avatar } = useSiteMetadata();
 
   return (

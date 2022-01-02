@@ -1,9 +1,14 @@
 import React from "react";
 import { Link, graphql } from "gatsby";
 
-import Layout from "../components/layout";
+import { Page } from "../queries/post";
 
-const Tags = ({ pageContext, data }) => {
+import Layout from "../components/layout";
+import { PageContext, PostData } from "../types";
+
+type Props = PageContext<"tag", string> & PostData<Pick<Page, "frontmatter">>;
+
+const Tags = ({ pageContext, data }: Props) => {
   const { tag } = pageContext;
   const { edges, totalCount } = data.allMdx;
   const tagHeader = `${totalCount} post${totalCount === 1 ? "" : "s"} tagged with "${tag}"`;

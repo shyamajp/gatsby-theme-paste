@@ -2,7 +2,9 @@ import React from "react";
 
 import { SiteMetadata } from "../queries/siteMetadata";
 
-const Footer = ({ title, author, social }: Pick<SiteMetadata, "title" | "author" | "social">) => {
+type Props = Pick<SiteMetadata, "title" | "author" | "social">;
+
+const Footer = ({ title, author, social }: Props) => {
   return (
     <div>
       <span>

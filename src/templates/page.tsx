@@ -5,10 +5,13 @@ import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import { MDXProvider } from "@mdx-js/react";
 
 import { Page } from "../queries/post";
+import { PageContext } from "../types";
 
 import Layout from "../components/layout";
 
-const PageTemplate = ({ pageContext: { page } }: { pageContext: { page: Page } }) => {
+type Props = PageContext<"page", Page>;
+
+const PageTemplate = ({ pageContext: { page } }: Props) => {
   const shortcodes = { Link };
   const image = getImage(page.frontmatter.featuredImage);
 

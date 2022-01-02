@@ -20,7 +20,7 @@ export interface SiteMetadata {
   siteUrl: string;
 }
 
-interface UseSiteMetadata {
+export interface UseSiteMetadata {
   siteMetadata: SiteMetadata;
   avatar: ImageDataLike;
 }

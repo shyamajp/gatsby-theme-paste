@@ -1,9 +1,14 @@
 import React from "react";
 import { Link, graphql } from "gatsby";
 
+import { PageContext, PostData } from "../types";
+import { Post } from "../queries/post";
+
 import Layout from "../components/layout";
 
-const Categories = ({ pageContext, data }) => {
+type Props = PageContext<"category", string> & PostData<Pick<Post, "frontmatter">>;
+
+const Categories = ({ pageContext, data }: Props) => {
   const { category } = pageContext;
   const { edges, totalCount } = data.allMdx;
   const categoryHeader = `${totalCount} post${totalCount === 1 ? "" : "s"} categoryged with "${category}"`;
