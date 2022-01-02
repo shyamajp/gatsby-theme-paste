@@ -5,7 +5,7 @@ import { PostData } from "../types";
 import { Post } from "../queries/post";
 
 import Layout from "../components/layout";
-import { PasteLink } from "../components/common";
+import PostCard from "../components/post-card";
 
 type Props = PostData<Pick<Post, "frontmatter" | "fields" | "excerpt">>;
 
@@ -14,15 +14,9 @@ const PostsTemplate = ({ data }: Props) => {
 
   return (
     <Layout>
-      <ul>
-        {edges.map(({ node: post }) => {
-          return (
-            <li key={post.fields.slug}>
-              <PasteLink to={`/blog/${post.fields.slug}`}>{post.frontmatter.title}</PasteLink> on {post.frontmatter.date}
-            </li>
-          );
-        })}
-      </ul>
+      {edges.map(({ node }) => (
+        <PostCard post={node} />
+      ))}
     </Layout>
   );
 };

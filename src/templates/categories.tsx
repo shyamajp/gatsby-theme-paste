@@ -1,11 +1,14 @@
 import React from "react";
 import { graphql } from "gatsby";
 
+import { Heading } from "@twilio-paste/heading";
+
 import { PageContext, PostData } from "../types";
 import { Post } from "../queries/post";
 
 import Layout from "../components/layout";
 import { PasteLink } from "../components/common";
+import PostCard from "../components/post-card";
 
 type Props = PageContext<"category", string> & PostData<Pick<Post, "frontmatter" | "fields" | "excerpt">>;
 
@@ -16,18 +19,12 @@ const Categories = ({ pageContext, data }: Props) => {
 
   return (
     <Layout>
-      <h1>{categoryHeader}</h1>
-      <ul>
-        {edges.map(({ node: post }) => {
-          const { title } = post.frontmatter;
-          const { slug } = post.fields;
-          return (
-            <li key={slug}>
-              <PasteLink to={`/blog/${slug}`}>{title}</PasteLink>
-            </li>
-          );
-        })}
-      </ul>
+      <Heading variant="heading10" as="h1">
+        {categoryHeader}
+      </Heading>
+      {edges.map(({ node }) => (
+        <PostCard post={node} />
+      ))}
       <PasteLink to="/categories">see all categories</PasteLink>
     </Layout>
   );
