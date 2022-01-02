@@ -1,4 +1,4 @@
-module.exports = ({ contentPath = "content" }) => ({
+module.exports = ({ contentPath = "content", postsPerPage = 10 }) => ({
   plugins: [
     "gatsby-plugin-react-helmet",
     "gatsby-plugin-sharp",

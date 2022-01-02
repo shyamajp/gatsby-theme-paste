@@ -61,7 +61,7 @@ exports.onCreateNode = ({ node, getNode, actions }) => {
   }
 };
 
-exports.createPages = async ({ actions, graphql, reporter }) => {
+exports.createPages = async ({ actions, graphql, reporter }, options) => {
   const { createPage } = actions;
 
   const postsTemplate = require.resolve("./src/templates/posts.tsx");
@@ -141,8 +141,7 @@ exports.createPages = async ({ actions, graphql, reporter }) => {
   const tags = result.data.tags.group;
   const categories = result.data.categories.group;
 
-  // TODO: Add this to config
-  const postsPerPage = 2;
+  const { postsPerPage } = options;
   const numPages = Math.ceil(posts.length / postsPerPage);
 
   Array.from({ length: numPages }).forEach((_, i) => {
