@@ -19,7 +19,7 @@ const PostList = ({ edges, pagination }: Props) => {
     <Box>
       <Grid vertical={[true, false, false]} equalColumnHeights>
         {edges.map(({ node }) => (
-          <Column span={[12, 6, 6]}>
+          <Column span={[12, 6, 6]} key={node.fields.slug}>
             <PostCard post={node} key={node.fields.slug} />
           </Column>
         ))}

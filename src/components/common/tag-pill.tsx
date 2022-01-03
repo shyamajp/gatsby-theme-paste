@@ -40,7 +40,7 @@ export const TagPill = ({ to, children }: Props) => {
       }}
       onClick={() => navigate(to)}
     >
-      {children}
+      # {children}
     </Box>
   );
 };

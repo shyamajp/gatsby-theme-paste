@@ -10,7 +10,7 @@ type PageFields = {
 type PageFrontmatter = {
   date: number;
   title: string;
-  featuredImage?: ImageDataLike;
+  image?: ImageDataLike;
 };
 
 type PostFrontmatter = PageFrontmatter & {
@@ -38,6 +38,11 @@ export const postFragments = graphql`
     title
     tags
     categories
+    image {
+      childImageSharp {
+        gatsbyImageData(width: 600, placeholder: BLURRED)
+      }
+    }
     date(formatString: "MMMM DD, YYYY")
   }
   fragment PostSummary on MdxConnection {

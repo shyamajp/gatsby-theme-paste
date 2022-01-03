@@ -13,7 +13,7 @@ type Props = PageContext<"post", Post>;
 
 const PostTemplate = ({ pageContext: { post } }: Props) => {
   const shortcodes = { Link: PasteLink };
-  const image = getImage(post.frontmatter.featuredImage);
+  const image = getImage(post.frontmatter.image);
 
   return (
     <Layout>
@@ -22,7 +22,7 @@ const PostTemplate = ({ pageContext: { post } }: Props) => {
       <h4>Tags</h4>
       <ul>
         {post.frontmatter.tags?.map((tag) => (
-          <li>
+          <li key={tag}>
             <PasteLink to={`/tags/${tag.toLowerCase()}`}>{tag}</PasteLink>
           </li>
         ))}
@@ -30,7 +30,9 @@ const PostTemplate = ({ pageContext: { post } }: Props) => {
       <h4>Categories</h4>
       <ul>
         {post.frontmatter.categories?.map((category) => (
-          <PasteLink to={`/categories/${category.toLowerCase()}`}>{category}</PasteLink>
+          <PasteLink key={category} to={`/categories/${category.toLowerCase()}`}>
+            {category}
+          </PasteLink>
         ))}
       </ul>
       <MDXProvider components={shortcodes}>

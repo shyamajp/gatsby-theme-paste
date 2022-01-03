@@ -15,7 +15,7 @@ type Props = PageContext<"page", Page>;
 
 const PageTemplate = ({ pageContext: { page } }: Props) => {
   const shortcodes = { Link };
-  const image = getImage(page.frontmatter.featuredImage);
+  const image = getImage(page.frontmatter.image);
 
   return (
     <Layout>

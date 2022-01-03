@@ -30,7 +30,7 @@ exports.createSchemaCustomization = ({ actions }) => {
       title: String!
       draft: Boolean
       type: String!
-      featuredImage: File @fileByRelativePath
+      image: File @fileByRelativePath
       tags: [String]
       categories: [String]
     }
@@ -84,7 +84,7 @@ exports.createPages = async ({ actions, graphql, reporter }, options) => {
             frontmatter {
               date
               title
-              featuredImage {
+              image {
                 childImageSharp {
                   gatsbyImageData(width: 800, placeholder: BLURRED)
                 }
@@ -107,7 +107,7 @@ exports.createPages = async ({ actions, graphql, reporter }, options) => {
             frontmatter {
               date
               title
-              featuredImage {
+              image {
                 childImageSharp {
                   gatsbyImageData(width: 800, placeholder: BLURRED)
                 }
