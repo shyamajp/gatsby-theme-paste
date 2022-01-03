@@ -14,7 +14,7 @@ type Props = Pick<SiteMetadata, "title" | "author" | "social" | "menuLinks">;
 
 const Footer = ({ title, author, social, menuLinks }: Props) => {
   return (
-    <Box backgroundColor="colorBackgroundPrimaryWeakest" padding="space40">
+    <Box backgroundColor="colorBackgroundPrimaryWeakest" padding="space40" width="100%">
       <Stack orientation="vertical" spacing="space40">
         <Flex hAlignContent="around">
           <Box>

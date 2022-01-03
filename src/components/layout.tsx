@@ -25,9 +25,7 @@ export const Layout = ({ children }: Props) => {
   return (
     <Theme.Provider theme="default">
       <Flex vertical minHeight="100vh">
-        <Box width="100%">
-          <Header title={siteMetadata.title} menuLinks={siteMetadata.menuLinks} />
-        </Box>
+        <Header title={siteMetadata.title} menuLinks={siteMetadata.menuLinks} />
         <Flex width="100%" grow>
           <Grid vertical={[true, false, false]} equalColumnHeights>
             <Column span={[12, 8, 8]}>{children}</Column>
@@ -40,9 +38,7 @@ export const Layout = ({ children }: Props) => {
             </Column>
           </Grid>
         </Flex>
-        <Box width="100%">
-          <Footer title={siteMetadata.title} author={siteMetadata.author} social={siteMetadata.social} menuLinks={siteMetadata.menuLinks} />
-        </Box>
+        <Footer title={siteMetadata.title} author={siteMetadata.author} social={siteMetadata.social} menuLinks={siteMetadata.menuLinks} />
       </Flex>
     </Theme.Provider>
   );

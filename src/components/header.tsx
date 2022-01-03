@@ -28,11 +28,11 @@ const Header = ({ title, menuLinks }: Props) => {
   const handleOpen = () => setIsOpen(true);
   const handleClose = () => setIsOpen(false);
 
-  if (device < Device.L) {
-    return (
-      <>
-        <Box backgroundColor="colorBackgroundBodyInverse" padding="space40">
-          <Flex vAlignContent="center" hAlignContent="between">
+  return (
+    <Box backgroundColor="colorBackgroundBodyInverse" padding="space40" position="sticky" top={0} width="100%" zIndex="zIndex10">
+      <Flex vAlignContent="center" hAlignContent="between">
+        {device < Device.L ? (
+          <>
             <MenuButton {...menu} variant="reset" size="reset">
               <MoreIcon decorative={false} title="Show Menu" color="colorTextBrandInverse" />
             </MenuButton>
@@ -51,8 +51,26 @@ const Header = ({ title, menuLinks }: Props) => {
             <Button variant="reset" size="reset" onClick={handleOpen}>
               <SearchIcon decorative={false} title="Search" color="colorTextBrandInverse" />
             </Button>
-          </Flex>
-        </Box>
+          </>
+        ) : (
+          <>
+            <PasteLink to="/">
+              <Text color="colorTextInverse" as="h1" fontSize="fontSize80">
+                {title}
+              </Text>
+            </PasteLink>
+            <Stack orientation="horizontal" spacing="space40">
+              {menuLinks.map((menuLink) => (
+                <PasteLink to={menuLink.link} key={menuLink.link}>
+                  <Text color="colorTextInverse" as="span" fontSize="fontSize40">
+                    {menuLink.name}
+                  </Text>
+                </PasteLink>
+              ))}
+              <Search />
+            </Stack>
+          </>
+        )}
         <Modal isOpen={isOpen} size="default" ariaLabelledby="search-modal" onDismiss={handleClose}>
           <ModalHeader>
             <ModalHeading as="h3">Search</ModalHeading>
@@ -67,27 +85,6 @@ const Header = ({ title, menuLinks }: Props) => {
             </Flex>
           </ModalBody>
         </Modal>
-      </>
-    );
-  }
-  return (
-    <Box backgroundColor="colorBackgroundBodyInverse" padding="space40">
-      <Flex vAlignContent="center" hAlignContent="between">
-        <PasteLink to="/">
-          <Text color="colorTextInverse" as="h1" fontSize="fontSize80">
-            {title}
-          </Text>
-        </PasteLink>
-        <Stack orientation="horizontal" spacing="space40">
-          {menuLinks.map((menuLink) => (
-            <PasteLink to={menuLink.link} key={menuLink.link}>
-              <Text color="colorTextInverse" as="span" fontSize="fontSize40">
-                {menuLink.name}
-              </Text>
-            </PasteLink>
-          ))}
-          <Search />
-        </Stack>
       </Flex>
     </Box>
   );
