@@ -17,9 +17,11 @@ export type PostData<T> = AllMdxData<{
   totalCount: number;
 }>;
 
+export type PostGroup = {
+  fieldValue: string;
+  totalCount: string;
+};
+
 export type PostGroupData = AllMdxData<{
-  group: {
-    fieldValue: string;
-    totalCount: number;
-  }[];
+  group: PostGroup[];
 }>;

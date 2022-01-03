@@ -6,10 +6,13 @@ import { Flex } from "@twilio-paste/flex";
 import { Grid, Column } from "@twilio-paste/grid";
 
 import { useSiteMetadata } from "../queries/siteMetadata";
+import { usePostGroups } from "../queries/post";
 
 import Header from "./header";
 import Footer from "./footer";
 import Bio from "./bio";
+import Categories from "./categories";
+import Tags from "./tags";
 
 type Props = {
   children: React.ReactNode;
@@ -17,6 +20,7 @@ type Props = {
 
 export const Layout = ({ children }: Props) => {
   const { siteMetadata } = useSiteMetadata();
+  const { categories, tags } = usePostGroups();
 
   return (
     <Theme.Provider theme="default">
@@ -30,6 +34,8 @@ export const Layout = ({ children }: Props) => {
             <Column span={[12, 4, 3]}>
               <Box backgroundColor="colorBackgroundRowStriped">
                 <Bio author={siteMetadata.author} />
+                <Categories categories={categories} />
+                <Tags tags={tags} />
               </Box>
             </Column>
           </Grid>

@@ -1,5 +1,7 @@
-import { graphql } from "gatsby";
+import { graphql, useStaticQuery } from "gatsby";
 import { ImageDataLike } from "gatsby-plugin-image";
+
+import { PostGroup } from "../types";
 
 type PageFields = {
   slug: string;
@@ -57,3 +59,28 @@ export const postFragments = graphql`
     totalCount
   }
 `;
+
+type UsePostGroups = {
+  categories: PostGroup[];
+  tags: PostGroup[];
+};
+
+export const usePostGroups = (): UsePostGroups => {
+  const { categories, tags } = useStaticQuery(
+    graphql`
+      query {
+        categories: allMdx(limit: 2000, filter: { frontmatter: { type: { eq: "post" } } }) {
+          group(field: frontmatter___categories) {
+            ...PostGroup
+          }
+        }
+        tags: allMdx(limit: 2000, filter: { frontmatter: { type: { eq: "post" } } }) {
+          group(field: frontmatter___tags) {
+            ...PostGroup
+          }
+        }
+      }
+    `
+  );
+  return { categories: categories.group, tags: tags.group };
+};
