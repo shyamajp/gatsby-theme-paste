@@ -28,10 +28,10 @@ export const Layout = ({ children }: Props) => {
         <Header title={siteMetadata.title} menuLinks={siteMetadata.menuLinks} />
         <Flex width="100%" grow>
           <Grid vertical={[true, false, false]} equalColumnHeights>
-            <Column span={[12, 8, 8]}>
+            <Column span={[12, 8, 9]}>
               <Box padding="space60">{children}</Box>
             </Column>
-            <Column span={4}>
+            <Column span={[12, 4, 3]}>
               <Box backgroundColor="colorBackgroundRowStriped">
                 <Bio author={siteMetadata.author} />
                 <Categories categories={categories} />
