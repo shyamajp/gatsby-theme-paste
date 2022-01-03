@@ -1,22 +1,33 @@
 import React from "react";
-import { graphql } from "gatsby";
 
-import { PostData } from "../types";
 import { Post } from "../queries/post";
 
 import Layout from "../components/layout";
 import PostCard from "../components/post-card";
+import { Pagination, PaginationProps } from "../components/common";
+import { graphql } from "gatsby";
+import { PostData } from "../types";
 
-type Props = PostData<Pick<Post, "frontmatter" | "fields" | "excerpt">>;
+type Props = PostData<Pick<Post, "frontmatter" | "fields" | "excerpt">> & {
+  limit: number;
+  skip: number;
+  pageContext: {
+    limit: number;
+    skip: number;
+    pagination: PaginationProps;
+  };
+};
 
-const PostsTemplate = ({ data }: Props) => {
+const PostsTemplate = ({ data, pageContext }: Props) => {
   const edges = data.allMdx.edges;
+  const { pagination } = pageContext;
 
   return (
     <Layout>
       {edges.map(({ node }) => (
         <PostCard post={node} key={node.fields.slug} />
       ))}
+      <Pagination {...pagination} />
     </Layout>
   );
 };
