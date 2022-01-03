@@ -16,7 +16,7 @@ type Props = {
 
 const PostCard = ({ post }: Props) => {
   return (
-    <Box key={post.fields.slug}>
+    <Box width="100%">
       <Box>
         <PasteLink to={`/blog/${post.fields.slug}`}>{post.frontmatter.title}</PasteLink>
       </Box>

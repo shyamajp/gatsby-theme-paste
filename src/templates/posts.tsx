@@ -1,12 +1,12 @@
 import React from "react";
+import { graphql } from "gatsby";
 
+import { PostData } from "../types";
 import { Post } from "../queries/post";
 
 import Layout from "../components/layout";
-import PostCard from "../components/post-card";
-import { Pagination, PaginationProps } from "../components/common";
-import { graphql } from "gatsby";
-import { PostData } from "../types";
+import PostList from "../components/post-list";
+import { PaginationProps } from "../components/common";
 
 type Props = PostData<Pick<Post, "frontmatter" | "fields" | "excerpt">> & {
   limit: number;
@@ -24,10 +24,7 @@ const PostsTemplate = ({ data, pageContext }: Props) => {
 
   return (
     <Layout>
-      {edges.map(({ node }) => (
-        <PostCard post={node} key={node.fields.slug} />
-      ))}
-      <Pagination {...pagination} />
+      <PostList edges={edges} pagination={pagination} />
     </Layout>
   );
 };

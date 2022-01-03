@@ -29,9 +29,9 @@ export const Layout = ({ children }: Props) => {
           <Header title={siteMetadata.title} menuLinks={siteMetadata.menuLinks} />
         </Box>
         <Flex width="100%" grow>
-          <Grid gutter={["space30", "space90", "space120"]}>
-            <Column span={[12, 9, 8]}>{children}</Column>
-            <Column span={[12, 4, 3]}>
+          <Grid vertical={[true, false, false]} equalColumnHeights>
+            <Column span={[12, 8, 8]}>{children}</Column>
+            <Column span={4}>
               <Box backgroundColor="colorBackgroundRowStriped">
                 <Bio author={siteMetadata.author} />
                 <Categories categories={categories} />
