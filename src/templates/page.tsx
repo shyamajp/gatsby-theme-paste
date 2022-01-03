@@ -4,6 +4,8 @@ import { MDXRenderer } from "gatsby-plugin-mdx";
 import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import { MDXProvider } from "@mdx-js/react";
 
+import { Heading } from "@twilio-paste/heading";
+
 import { Page } from "../queries/post";
 import { PageContext } from "../types";
 
@@ -17,7 +19,9 @@ const PageTemplate = ({ pageContext: { page } }: Props) => {
 
   return (
     <Layout>
-      <h1>{page.frontmatter.title}</h1>
+      <Heading variant="heading10" as="h1">
+        {page.frontmatter.title}
+      </Heading>
       <GatsbyImage image={image} alt={page.frontmatter.title} />
       <MDXProvider components={shortcodes}>
         <MDXRenderer frontmatter={page.frontmatter}>{page.body}</MDXRenderer>

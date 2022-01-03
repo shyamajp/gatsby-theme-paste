@@ -4,11 +4,11 @@ import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import { Box } from "@twilio-paste/box";
 import { Width } from "@twilio-paste/style-props";
 
-import { SiteMetadata, UseSiteMetadata } from "../queries/siteMetadata";
+import { SiteMetadata, UseSiteMetadata } from "../../queries/siteMetadata";
 
 type Props = Pick<SiteMetadata, "author"> & Pick<UseSiteMetadata, "avatar"> & { width?: Width };
 
-const Avatar = ({ avatar, author, width }: Props) => {
+export const Avatar = ({ avatar, author, width }: Props) => {
   const image = getImage(avatar);
   return (
     <Box width={width}>
@@ -16,5 +16,3 @@ const Avatar = ({ avatar, author, width }: Props) => {
     </Box>
   );
 };
-
-export default Avatar;

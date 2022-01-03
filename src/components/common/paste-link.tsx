@@ -2,7 +2,12 @@ import React from "react";
 import { navigate } from "gatsby";
 import { Anchor } from "@twilio-paste/anchor";
 
-export const PasteLink = ({ to, children }) => {
+type Props = {
+  to: string;
+  children: React.ReactNode;
+};
+
+export const PasteLink = ({ to, children }: Props) => {
   return (
     <Anchor
       href={to}

@@ -16,7 +16,7 @@ import { SiteMetadata } from "../queries/siteMetadata";
 
 import { Search } from "./search";
 import { PasteLink } from "./common";
-import { Device, useDevice } from "../hooks";
+import { Device, useDevice } from "../hooks/device";
 
 type Props = Pick<SiteMetadata, "title" | "menuLinks">;
 

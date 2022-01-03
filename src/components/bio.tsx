@@ -7,7 +7,7 @@ import { Heading } from "@twilio-paste/heading";
 
 import { SiteMetadata, UseSiteMetadata } from "../queries/siteMetadata";
 
-import Avatar from "./avatar";
+import { Avatar } from "./common";
 
 type Props = Pick<SiteMetadata, "author"> & Pick<UseSiteMetadata, "avatar">;
 

@@ -2,7 +2,7 @@ import React from "react";
 import { graphql } from "gatsby";
 
 import { PostGroupData } from "../types";
-import { sortByTotalCount } from "../utils";
+import { sortByTotalCount } from "../utils/queries";
 
 import Layout from "../components/layout";
 import { PasteLink } from "../components/common";
