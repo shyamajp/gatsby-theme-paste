@@ -23,15 +23,21 @@ export type SiteMetadata = {
 export type UseSiteMetadata = {
   siteMetadata: SiteMetadata;
   avatar: ImageDataLike;
+  defaultImage: ImageDataLike;
 };
 
 export const useSiteMetadata = (): UseSiteMetadata => {
-  const { site, avatar } = useStaticQuery(
+  const { site, avatar, defaultImage } = useStaticQuery(
     graphql`
       query {
         avatar: file(absolutePath: { regex: "/avatar.(jpg|png)$/" }) {
           childImageSharp {
             gatsbyImageData(width: 200, placeholder: BLURRED)
+          }
+        }
+        defaultImage: file(absolutePath: { regex: "/default.(jpg|png)$/" }) {
+          childImageSharp {
+            gatsbyImageData(width: 600, placeholder: BLURRED)
           }
         }
         site {
@@ -51,5 +57,5 @@ export const useSiteMetadata = (): UseSiteMetadata => {
       }
     `
   );
-  return { siteMetadata: site.siteMetadata, avatar };
+  return { siteMetadata: site.siteMetadata, avatar, defaultImage };
 };

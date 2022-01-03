@@ -10,6 +10,7 @@ import { Text } from "@twilio-paste/text";
 import { DisplayPillGroup } from "@twilio-paste/display-pill-group";
 
 import { Post } from "../queries/post";
+import { useSiteMetadata } from "../queries/siteMetadata";
 import { Device, useDevice } from "../hooks/device";
 
 import { CategoryPill, PasteLink, TagPill } from "./common";
@@ -19,13 +20,15 @@ type Props = {
 };
 
 const PostCard = ({ post }: Props) => {
+  const { defaultImage } = useSiteMetadata();
   const device = useDevice();
   const image = getImage(post.frontmatter.image);
+  const defaultPostImage = getImage(defaultImage);
 
   return (
     <Box width="100%" padding="space60">
       <Stack orientation="vertical" spacing="space40">
-        {image && <GatsbyImage image={image} alt={post.frontmatter.title} />}
+        {image ? <GatsbyImage image={image} alt={post.frontmatter.title} /> : <GatsbyImage image={defaultPostImage} alt={post.frontmatter.title} />}
         <PasteLink to={`/blog/${post.fields.slug}`}>
           <Text as="h2" fontSize="fontSize50">
             {post.frontmatter.title}
