@@ -2,6 +2,7 @@ module.exports = ({ contentPath = "content", postsPerPage = 10 }) => ({
   plugins: [
     "gatsby-plugin-react-helmet",
     "gatsby-plugin-sharp",
+    "gatsby-plugin-image",
     "gatsby-remark-images",
     "gatsby-transformer-sharp",
     {
