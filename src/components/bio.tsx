@@ -5,20 +5,20 @@ import { Flex } from "@twilio-paste/flex";
 import { Text } from "@twilio-paste/text";
 import { Heading } from "@twilio-paste/heading";
 
-import { SiteMetadata, UseSiteMetadata } from "../queries/siteMetadata";
+import { SiteMetadata } from "../queries/siteMetadata";
 
 import { Avatar } from "./common";
 
-type Props = Pick<SiteMetadata, "author"> & Pick<UseSiteMetadata, "avatar">;
+type Props = Pick<SiteMetadata, "author">;
 
-const Bio = ({ avatar, author }: Props) => {
+const Bio = ({ author }: Props) => {
   return (
     <Box padding="space40">
       <Flex vertical hAlignContent="center">
         <Heading variant="heading30" as="h3">
           About Author
         </Heading>
-        <Avatar avatar={avatar} author={author} />
+        <Avatar />
         <Text as="span" marginTop="space60" fontWeight="fontWeightSemibold" fontSize="fontSize40">
           {author}
         </Text>

@@ -16,7 +16,7 @@ type Props = {
 };
 
 export const Layout = ({ children }: Props) => {
-  const { siteMetadata, avatar } = useSiteMetadata();
+  const { siteMetadata } = useSiteMetadata();
 
   return (
     <Theme.Provider theme="default">
@@ -29,7 +29,7 @@ export const Layout = ({ children }: Props) => {
             <Column span={[12, 9, 8]}>{children}</Column>
             <Column span={[12, 4, 3]}>
               <Box backgroundColor="colorBackgroundRowStriped">
-                <Bio author={siteMetadata.author} avatar={avatar} />
+                <Bio author={siteMetadata.author} />
               </Box>
             </Column>
           </Grid>
