@@ -31,7 +31,7 @@ export const useSiteMetadata = (): UseSiteMetadata => {
       query {
         avatar: file(absolutePath: { regex: "/avatar.(jpg|png)$/" }) {
           childImageSharp {
-            gatsbyImageData(width: 100, placeholder: BLURRED)
+            gatsbyImageData(width: 200, placeholder: BLURRED)
           }
         }
         site {

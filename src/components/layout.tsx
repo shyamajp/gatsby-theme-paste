@@ -28,7 +28,9 @@ export const Layout = ({ children }: Props) => {
           <Grid gutter={["space30", "space90", "space120"]}>
             <Column span={[12, 9, 8]}>{children}</Column>
             <Column span={[12, 4, 3]}>
-              <Bio author={siteMetadata.author} avatar={avatar} />
+              <Box backgroundColor="colorBackgroundRowStriped">
+                <Bio author={siteMetadata.author} avatar={avatar} />
+              </Box>
             </Column>
           </Grid>
         </Flex>
