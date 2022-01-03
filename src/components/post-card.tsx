@@ -27,14 +27,14 @@ const PostCard = ({ post }: Props) => {
       </Box>
       <DisplayPillGroup aria-label="categories">
         {post.frontmatter.categories?.map((category) => (
-          <DisplayPill>
+          <DisplayPill key={category}>
             <Link to={`/categories/${category.toLowerCase()}`}>{category}</Link>
           </DisplayPill>
         ))}
       </DisplayPillGroup>
       <DisplayPillGroup aria-label="tags">
         {post.frontmatter.tags?.map((tag) => (
-          <DisplayPill>
+          <DisplayPill key={tag}>
             <Link to={`/tags/${tag.toLowerCase()}`}>{tag}</Link>
           </DisplayPill>
         ))}

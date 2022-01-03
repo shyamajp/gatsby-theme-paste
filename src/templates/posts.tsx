@@ -15,7 +15,7 @@ const PostsTemplate = ({ data }: Props) => {
   return (
     <Layout>
       {edges.map(({ node }) => (
-        <PostCard post={node} />
+        <PostCard post={node} key={node.fields.slug} />
       ))}
     </Layout>
   );
