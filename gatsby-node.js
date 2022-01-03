@@ -75,18 +75,17 @@ exports.createPages = async ({ actions, graphql, reporter }, options) => {
       posts: allMdx(sort: { order: DESC, fields: [frontmatter___date] }, filter: { frontmatter: { type: { eq: "post" } } }) {
         edges {
           node {
-            excerpt
             fields {
               slug
             }
             timeToRead
             body
             frontmatter {
-              date
+              date(formatString: "MMMM DD, YYYY")
               title
               image {
                 childImageSharp {
-                  gatsbyImageData(width: 800, placeholder: BLURRED)
+                  gatsbyImageData(width: 1200, placeholder: BLURRED)
                 }
               }
               tags
@@ -99,17 +98,16 @@ exports.createPages = async ({ actions, graphql, reporter }, options) => {
       pages: allMdx(filter: { frontmatter: { type: { ne: "post" } } }) {
         edges {
           node {
-            excerpt
             fields {
               slug
             }
             body
             frontmatter {
-              date
+              date(formatString: "MMMM DD, YYYY")
               title
               image {
                 childImageSharp {
-                  gatsbyImageData(width: 800, placeholder: BLURRED)
+                  gatsbyImageData(width: 1200, placeholder: BLURRED)
                 }
               }
             }
