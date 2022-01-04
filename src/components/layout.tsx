@@ -30,7 +30,7 @@ export const Layout = ({ children }: Props) => {
         <Header title={siteMetadata.title} menuLinks={siteMetadata.menuLinks} />
         <div id="page">
           <div id="side">
-            <Box backgroundColor="colorBackgroundRowStriped">
+            <Box backgroundColor="colorBackgroundRowStriped" height="100%">
               <Bio author={siteMetadata.author} />
               <Categories categories={categories} />
               <Tags tags={tags} />
@@ -38,8 +38,8 @@ export const Layout = ({ children }: Props) => {
             </Box>
           </div>
           <div id="main">
-            <Flex vertical hAlignContent="center">
-              <Box maxWidth={1200} padding="space80">
+            <Flex vertical hAlignContent="center" height="100%">
+              <Box flex={1} maxWidth={1200} padding="space80">
                 {children}
               </Box>
               <Footer siteMetadata={siteMetadata} categories={categories.splice(0, 5)} tags={tags.splice(0, 5)} />
