@@ -1,12 +1,12 @@
 import { useStaticQuery, graphql } from "gatsby";
 import { ImageDataLike } from "gatsby-plugin-image";
 
-type internalLinks = {
+type internalLink = {
   name: string;
   link: string;
 };
 
-type Social = {
+export type SocialLink = {
   name: string;
   url: string;
 };
@@ -15,9 +15,9 @@ export type SiteMetadata = {
   title: string;
   description: string;
   author: { name: string; description: string };
-  menuLinks: internalLinks[];
-  quickLinks: internalLinks[];
-  social: Social[];
+  menuLinks: internalLink[];
+  quickLinks: internalLink[];
+  social: SocialLink[];
   siteUrl: string;
 };
 

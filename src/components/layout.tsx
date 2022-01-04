@@ -12,6 +12,7 @@ import Footer from "./footer";
 import Bio from "./bio";
 import Categories from "./categories";
 import Tags from "./tags";
+import Social from "./social";
 
 import "./layout.css";
 
@@ -33,6 +34,7 @@ export const Layout = ({ children }: Props) => {
               <Bio author={siteMetadata.author} />
               <Categories categories={categories} />
               <Tags tags={tags} />
+              <Social social={siteMetadata.social} />
             </Box>
           </div>
           <div id="main">
