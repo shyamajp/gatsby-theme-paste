@@ -1,5 +1,5 @@
 import React from "react";
-import { navigate } from "gatsby";
+import { Link, navigate } from "gatsby";
 
 import { Box } from "@twilio-paste/box";
 import { Stack } from "@twilio-paste/stack";
@@ -29,12 +29,12 @@ const Header = ({ title, menuLinks }: Props) => {
   const handleClose = () => setIsOpen(false);
 
   return (
-    <Box backgroundColor="colorBackgroundBodyInverse" padding="space40" position="sticky" top={0} width="100%" zIndex="zIndex10">
-      <Flex vAlignContent="center" hAlignContent="between">
+    <Box backgroundColor="colorBackgroundBodyInverse" position="sticky" top={0} width="100%" zIndex="zIndex10">
+      <Flex vAlignContent="center" hAlignContent="between" height={72} paddingX="space80">
         {device < Device.L ? (
           <>
             <MenuButton {...menu} variant="reset" size="reset">
-              <MoreIcon decorative={false} title="Show Menu" color="colorTextBrandInverse" />
+              <MoreIcon decorative={false} title="Show Menu" color="colorTextBrandInverse" size="sizeIcon60" />
             </MenuButton>
             <Menu {...menu} aria-label="Preferences">
               {menuLinks.map((menuLink) => (
@@ -43,29 +43,29 @@ const Header = ({ title, menuLinks }: Props) => {
                 </MenuItem>
               ))}
             </Menu>
-            <PasteLink to="/">
-              <Text color="colorTextInverse" as="h1" fontSize="fontSize80">
+            <Link to="/">
+              <Text color="colorTextInverse" as="h1" fontSize="fontSize80" _hover={{ color: "colorTextInverseWeak" }}>
                 {title}
               </Text>
-            </PasteLink>
+            </Link>
             <Button variant="reset" size="reset" onClick={handleOpen}>
-              <SearchIcon decorative={false} title="Search" color="colorTextBrandInverse" />
+              <SearchIcon decorative={false} title="Search" color="colorTextBrandInverse" size="sizeIcon60" />
             </Button>
           </>
         ) : (
           <>
-            <PasteLink to="/">
-              <Text color="colorTextInverse" as="h1" fontSize="fontSize80">
+            <Link to="/" style={{ textDecoration: "none" }}>
+              <Text color="colorTextInverse" as="h1" fontSize="fontSize80" _hover={{ color: "colorTextInverseWeak" }}>
                 {title}
               </Text>
-            </PasteLink>
-            <Stack orientation="horizontal" spacing="space40">
+            </Link>
+            <Stack orientation="horizontal" spacing="space60">
               {menuLinks.map((menuLink) => (
-                <PasteLink to={menuLink.link} key={menuLink.link}>
-                  <Text color="colorTextInverse" as="span" fontSize="fontSize40">
+                <Link to={menuLink.link} key={menuLink.link} style={{ textDecoration: "none" }}>
+                  <Text color="colorTextInverse" as="span" fontSize="fontSize60" _hover={{ color: "colorTextInverseWeak" }}>
                     {menuLink.name}
                   </Text>
-                </PasteLink>
+                </Link>
               ))}
               <Search />
             </Stack>
@@ -77,10 +77,12 @@ const Header = ({ title, menuLinks }: Props) => {
           </ModalHeader>
           <ModalBody>
             <Flex vertical hAlignContent="center">
-              <Search />
+              <Box marginTop="space40" marginBottom="space60">
+                <Search />
+              </Box>
               <Paragraph>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque facilis rem quidem, repudiandae voluptate modi et possimus cumque voluptatibus hic, eum consequuntur assumenda. Vero a
-                eum illo explicabo, dignissimos dolores.
+                Type something relevant to the post(s) you are looking for. This search feature will go through <Text as="b">title</Text> and <Text as="b">body</Text> of every single post.
+                Alternatively, you can also filter posts by <PasteLink to="/categories">categories</PasteLink> or <PasteLink to="/tags">tags</PasteLink>.
               </Paragraph>
             </Flex>
           </ModalBody>
