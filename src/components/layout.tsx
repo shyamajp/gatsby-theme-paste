@@ -29,7 +29,11 @@ export const Layout = ({ children }: Props) => {
         <Flex width="100%" grow>
           <Grid vertical={[true, false, false]} equalColumnHeights>
             <Column span={[12, 8, 9]}>
-              <Box padding="space60">{children}</Box>
+              <Flex width="100%" hAlignContent="center">
+                <Box maxWidth={1200} padding="space80">
+                  {children}
+                </Box>
+              </Flex>
             </Column>
             <Column span={[12, 4, 3]}>
               <Box backgroundColor="colorBackgroundRowStriped">
