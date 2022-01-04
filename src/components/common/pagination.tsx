@@ -8,18 +8,26 @@ export type PaginationProps = {
   currentPage: number;
   totalPosts: number;
   postsPerPage: number;
+  link?: {
+    first: string;
+    pagePrefix: string;
+  };
 };
 
-export const Pagination = ({ totalPages, currentPage, totalPosts, postsPerPage }: PaginationProps) => {
+export const Pagination = ({ totalPages, currentPage, totalPosts, postsPerPage, link = { first: "/", pagePrefix: "/blog" } }: PaginationProps) => {
   const start = (currentPage - 1) * postsPerPage + 1;
   const end = totalPosts - currentPage * postsPerPage > 0 ? currentPage * postsPerPage : totalPosts;
   const results = `${start}-${end} of ${totalPosts}`;
 
-  const goToNextPage = () => navigate(`/blog/${currentPage + 1}`);
-  const goToPreviousPage = () => navigate(`/blog/${currentPage - 1}`);
+  const goToNextPage = () => navigate(`${link.pagePrefix}/${currentPage + 1}`);
+  const goToPreviousPage = () => navigate(`${link.pagePrefix}/${currentPage - 1}`);
   const goToPage = (page: number) => {
-    navigate(page === 1 ? `/` : `/blog/${page}`);
+    navigate(page === 1 ? link.first : `${link.pagePrefix}/${page}`);
   };
+
+  if (totalPages <= 1) {
+    return <></>;
+  }
 
   return (
     <PastePagination label="paged pagination navigation">

@@ -1,6 +1,16 @@
+import { PaginationProps } from "./components/common";
+
 export type PageContext<K extends PropertyKey, V> = {
   pageContext: {
     [key in K]: V;
+  };
+};
+
+export type PaginatedPageContext = {
+  pageContext: {
+    limit: number;
+    skip: number;
+    pagination: PaginationProps;
   };
 };
 

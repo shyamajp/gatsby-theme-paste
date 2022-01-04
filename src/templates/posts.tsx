@@ -1,22 +1,13 @@
 import React from "react";
 import { graphql } from "gatsby";
 
-import { PostData } from "../types";
+import { PageContext, PaginatedPageContext, PostData } from "../types";
 import { Post } from "../queries/post";
 
 import Layout from "../components/layout";
 import PostList from "../components/post-list";
-import { PaginationProps } from "../components/common";
 
-type Props = PostData<Pick<Post, "frontmatter" | "fields" | "excerpt">> & {
-  limit: number;
-  skip: number;
-  pageContext: {
-    limit: number;
-    skip: number;
-    pagination: PaginationProps;
-  };
-};
+type Props = PostData<Pick<Post, "frontmatter" | "fields" | "excerpt">> & PaginatedPageContext & PageContext<"category", string>;
 
 const PostsTemplate = ({ data, pageContext }: Props) => {
   const edges = data.allMdx.edges;

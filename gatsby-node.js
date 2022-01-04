@@ -180,22 +180,44 @@ exports.createPages = async ({ actions, graphql, reporter }, options) => {
   });
 
   tags.forEach((tag) => {
-    createPage({
-      path: `/tags/${tag.fieldValue.toLowerCase()}/`,
-      component: tagsTemplate,
-      context: {
-        tag: tag.fieldValue,
-      },
+    const totalTagPages = Math.ceil(tag.totalCount / postsPerPage);
+    Array.from({ length: tag.totalCount }).forEach((_, i) => {
+      createPage({
+        path: i === 0 ? `/tags/${tag.fieldValue.toLowerCase()}` : `/tags/${tag.fieldValue.toLowerCase()}/${i + 1}`,
+        component: tagsTemplate,
+        context: {
+          limit: postsPerPage,
+          skip: i * postsPerPage,
+          pagination: {
+            currentPage: i + 1,
+            totalPages: totalTagPages,
+            totalPosts: tag.totalCount,
+            postsPerPage,
+          },
+          tag: tag.fieldValue,
+        },
+      });
     });
   });
 
   categories.forEach((category) => {
-    createPage({
-      path: `/categories/${category.fieldValue.toLowerCase()}/`,
-      component: categoriesTemplate,
-      context: {
-        category: category.fieldValue,
-      },
+    const totalCategoryPages = Math.ceil(category.totalCount / postsPerPage);
+    Array.from({ length: category.totalCount }).forEach((_, i) => {
+      createPage({
+        path: i === 0 ? `/categories/${category.fieldValue.toLowerCase()}` : `/categories/${category.fieldValue.toLowerCase()}/${i + 1}`,
+        component: categoriesTemplate,
+        context: {
+          limit: postsPerPage,
+          skip: i * postsPerPage,
+          pagination: {
+            currentPage: i + 1,
+            totalPages: totalCategoryPages,
+            totalPosts: category.totalCount,
+            postsPerPage,
+          },
+          category: category.fieldValue,
+        },
+      });
     });
   });
 };

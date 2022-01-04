@@ -2,30 +2,38 @@ import React from "react";
 import { graphql } from "gatsby";
 
 import { Heading } from "@twilio-paste/heading";
+import { Breadcrumb, BreadcrumbItem } from "@twilio-paste/breadcrumb";
 
-import { PageContext, PostData } from "../types";
-import { Page } from "../queries/post";
+import { PageContext, PaginatedPageContext, PostData } from "../types";
+import { Post } from "../queries/post";
 
 import Layout from "../components/layout";
 import { PasteLink } from "../components/common";
-import PostCard from "../components/post-card";
+import PostList from "../components/post-list";
 
-type Props = PageContext<"tag", string> & PostData<Pick<Page, "frontmatter" | "fields" | "excerpt">>;
+type Props = PostData<Pick<Post, "frontmatter" | "fields" | "excerpt">> & PaginatedPageContext & PageContext<"tag", string>;
 
 const Tags = ({ pageContext, data }: Props) => {
-  const { tag } = pageContext;
+  const { tag, pagination } = pageContext;
   const { edges, totalCount } = data.allMdx;
   const tagHeader = `${totalCount} post${totalCount === 1 ? "" : "s"} tagged with "${tag}"`;
 
+  console.log(pageContext);
   return (
     <Layout>
+      <Breadcrumb>
+        <BreadcrumbItem>
+          <PasteLink to="/">All Posts</PasteLink>
+        </BreadcrumbItem>
+        <BreadcrumbItem>
+          <PasteLink to="/tags">Tags</PasteLink>
+        </BreadcrumbItem>
+        <BreadcrumbItem>{tag}</BreadcrumbItem>
+      </Breadcrumb>
       <Heading variant="heading10" as="h1">
         {tagHeader}
       </Heading>
-      {edges.map(({ node }) => (
-        <PostCard post={node} />
-      ))}
-      <PasteLink to="/tags">see all tags</PasteLink>
+      <PostList edges={edges} pagination={{ ...pagination, link: { first: `/tags/${tag}`, pagePrefix: `/tags/${tag}` } }} />
     </Layout>
   );
 };
@@ -33,8 +41,8 @@ const Tags = ({ pageContext, data }: Props) => {
 export default Tags;
 
 export const pageQuery = graphql`
-  query ($tag: String) {
-    allMdx(limit: 2000, sort: { fields: [frontmatter___date], order: DESC }, filter: { frontmatter: { tags: { in: [$tag] }, type: { eq: "post" } } }) {
+  query ($tag: String, $skip: Int!, $limit: Int!) {
+    allMdx(sort: { fields: [frontmatter___date], order: DESC }, limit: $limit, skip: $skip, filter: { frontmatter: { tags: { in: [$tag] }, type: { eq: "post" } } }) {
       ...PostSummary
     }
   }

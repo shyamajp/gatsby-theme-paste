@@ -2,30 +2,37 @@ import React from "react";
 import { graphql } from "gatsby";
 
 import { Heading } from "@twilio-paste/heading";
+import { Breadcrumb, BreadcrumbItem } from "@twilio-paste/breadcrumb";
 
-import { PageContext, PostData } from "../types";
+import { PageContext, PaginatedPageContext, PostData } from "../types";
 import { Post } from "../queries/post";
 
 import Layout from "../components/layout";
 import { PasteLink } from "../components/common";
-import PostCard from "../components/post-card";
+import PostList from "../components/post-list";
 
-type Props = PageContext<"category", string> & PostData<Pick<Post, "frontmatter" | "fields" | "excerpt">>;
+type Props = PostData<Pick<Post, "frontmatter" | "fields" | "excerpt">> & PaginatedPageContext & PageContext<"category", string>;
 
 const Categories = ({ pageContext, data }: Props) => {
-  const { category } = pageContext;
+  const { category, pagination } = pageContext;
   const { edges, totalCount } = data.allMdx;
   const categoryHeader = `${totalCount} post${totalCount === 1 ? "" : "s"} categoryged with "${category}"`;
 
   return (
     <Layout>
+      <Breadcrumb>
+        <BreadcrumbItem>
+          <PasteLink to="/">All Posts</PasteLink>
+        </BreadcrumbItem>
+        <BreadcrumbItem>
+          <PasteLink to="/categories">Categories</PasteLink>
+        </BreadcrumbItem>
+        <BreadcrumbItem>{category}</BreadcrumbItem>
+      </Breadcrumb>
       <Heading variant="heading10" as="h1">
         {categoryHeader}
       </Heading>
-      {edges.map(({ node }) => (
-        <PostCard post={node} />
-      ))}
-      <PasteLink to="/categories">see all categories</PasteLink>
+      <PostList edges={edges} pagination={{ ...pagination, link: { first: `/categories/${category}`, pagePrefix: `/categories/${category}` } }} />
     </Layout>
   );
 };
@@ -33,8 +40,8 @@ const Categories = ({ pageContext, data }: Props) => {
 export default Categories;
 
 export const pageQuery = graphql`
-  query ($category: String) {
-    allMdx(limit: 2000, sort: { fields: [frontmatter___date], order: DESC }, filter: { frontmatter: { categories: { in: [$category] }, type: { eq: "post" } } }) {
+  query ($category: String, $skip: Int!, $limit: Int!) {
+    allMdx(sort: { fields: [frontmatter___date], order: DESC }, limit: $limit, skip: $skip, filter: { frontmatter: { categories: { in: [$category] }, type: { eq: "post" } } }) {
       ...PostSummary
     }
   }
