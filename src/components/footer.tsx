@@ -2,52 +2,99 @@ import React from "react";
 
 import { Anchor } from "@twilio-paste/anchor";
 import { Box } from "@twilio-paste/box";
+import { DisplayPillGroup } from "@twilio-paste/display-pill-group";
+import { Button } from "@twilio-paste/button";
+import { Grid, Column } from "@twilio-paste/grid";
 import { Heading } from "@twilio-paste/heading";
 import { Stack } from "@twilio-paste/stack";
 import { Flex } from "@twilio-paste/flex";
 import { Text } from "@twilio-paste/text";
+import { Paragraph } from "@twilio-paste/paragraph";
+import { ChevronUpIcon } from "@twilio-paste/icons/esm/ChevronUpIcon";
 
 import { SiteMetadata } from "../queries/siteMetadata";
-import { PasteLink } from "./common";
+import { PostGroup } from "../types";
 
-type Props = Pick<SiteMetadata, "title" | "author" | "social" | "menuLinks">;
+import { CategoryPill, PasteLink, TagPill } from "./common";
 
-const Footer = ({ title, author, social, menuLinks }: Props) => {
+type Props = {
+  siteMetadata: SiteMetadata;
+  tags: PostGroup[];
+  categories: PostGroup[];
+};
+
+type FooterBlockProps = {
+  children: React.ReactNode;
+  title: string;
+};
+
+const FooterBlock = ({ children, title }: FooterBlockProps) => (
+  <Flex vertical hAlignContent="center" paddingX="space60">
+    <Heading variant="heading40" as="h4">
+      {title}
+    </Heading>
+    <Stack orientation="vertical" spacing="space30">
+      {children}
+    </Stack>
+  </Flex>
+);
+
+const Footer = ({ siteMetadata, categories, tags }: Props) => {
   return (
-    <Box backgroundColor="colorBackgroundPrimaryWeakest" padding="space40" width="100%">
-      <Stack orientation="vertical" spacing="space40">
-        <Flex hAlignContent="around">
-          <Box>
-            <Heading variant="heading40" as="h4">
-              Links
-            </Heading>
-            <Stack orientation="vertical" spacing="space20">
-              {menuLinks.map((socialLink) => (
-                <PasteLink to={socialLink.link} key={socialLink.link}>
-                  {socialLink.name}
-                </PasteLink>
-              ))}
+    <Box backgroundColor="colorBackgroundPrimaryWeakest" padding="space60" width="100%">
+      <Flex hAlignContent="center" marginBottom="space60">
+        <Button variant="reset" size="reset" onClick={() => document.getElementById("main").scrollTo({ top: 0, behavior: "smooth" })}>
+          <ChevronUpIcon decorative={false} title="Go back to page top" size="sizeIcon60" />
+        </Button>
+      </Flex>
+      <Grid>
+        <Column span={[12, 6, 3]}>
+          <FooterBlock title="Quick Links">
+            {siteMetadata.quickLinks.map((quickLink) => (
+              <PasteLink to={quickLink.link} key={quickLink.link}>
+                {quickLink.name}
+              </PasteLink>
+            ))}
+          </FooterBlock>
+        </Column>
+        <Column span={[12, 6, 3]}>
+          <FooterBlock title="Social">
+            {siteMetadata.social.map((socialLink) => (
+              <Anchor href={socialLink.url} key={socialLink.url} showExternal>
+                {socialLink.name}
+              </Anchor>
+            ))}
+          </FooterBlock>
+        </Column>
+        <Column span={[12, 6, 3]}>
+          <FooterBlock title="Categories and Tags">
+            <Stack orientation="vertical" spacing="space60">
+              <DisplayPillGroup aria-label="categories">
+                {categories.map(({ fieldValue }) => (
+                  <CategoryPill to={`/categories/${fieldValue}`}>{fieldValue}</CategoryPill>
+                ))}
+              </DisplayPillGroup>
+              <DisplayPillGroup aria-label="tags">
+                {tags.map(({ fieldValue }) => (
+                  <TagPill to={`/categories/${fieldValue}`}>{fieldValue}</TagPill>
+                ))}
+              </DisplayPillGroup>
             </Stack>
-          </Box>
-          <Box>
-            <Heading variant="heading40" as="h4">
-              Social
-            </Heading>
-            <Stack orientation="vertical" spacing="space20">
-              {social.map((socialLink) => (
-                <Anchor href={socialLink.url} key={socialLink.url} showExternal>
-                  {socialLink.name}
-                </Anchor>
-              ))}
-            </Stack>
-          </Box>
-        </Flex>
-        <Flex hAlignContent="center">
-          <Text as="span">
-            {title} by {author.name}
-          </Text>
-        </Flex>
-      </Stack>
+          </FooterBlock>
+        </Column>
+        <Column span={[12, 6, 3]}>
+          <FooterBlock title="About">
+            <Text as="b" fontWeight="fontWeightBold" fontSize="fontSize40">
+              {siteMetadata.title}
+            </Text>
+            <Paragraph>{siteMetadata.description}</Paragraph>
+            <Text as="b" fontWeight="fontWeightBold" fontSize="fontSize40">
+              {siteMetadata.author.name}
+            </Text>
+            <Paragraph>{siteMetadata.author.description}</Paragraph>
+          </FooterBlock>
+        </Column>
+      </Grid>
     </Box>
   );
 };

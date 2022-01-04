@@ -40,7 +40,7 @@ export const Layout = ({ children }: Props) => {
               <Box maxWidth={1200} padding="space80">
                 {children}
               </Box>
-              <Footer title={siteMetadata.title} author={siteMetadata.author} social={siteMetadata.social} quickLinks={siteMetadata.quickLinks} />
+              <Footer siteMetadata={siteMetadata} categories={categories.splice(0, 5)} tags={tags.splice(0, 5)} />
             </Flex>
           </div>
         </div>

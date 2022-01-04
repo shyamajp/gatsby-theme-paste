@@ -1,7 +1,7 @@
 import { useStaticQuery, graphql } from "gatsby";
 import { ImageDataLike } from "gatsby-plugin-image";
 
-type MenuLinks = {
+type internalLinks = {
   name: string;
   link: string;
 };
@@ -15,7 +15,8 @@ export type SiteMetadata = {
   title: string;
   description: string;
   author: { name: string; description: string };
-  menuLinks: MenuLinks[];
+  menuLinks: internalLinks[];
+  quickLinks: internalLinks[];
   social: Social[];
   siteUrl: string;
 };
@@ -43,11 +44,16 @@ export const useSiteMetadata = (): UseSiteMetadata => {
         site {
           siteMetadata {
             title
+            description
             author {
               name
               description
             }
             menuLinks {
+              name
+              link
+            }
+            quickLinks {
               name
               link
             }
