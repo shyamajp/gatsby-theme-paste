@@ -7,7 +7,7 @@ import { Button } from "@twilio-paste/button";
 import { Text } from "@twilio-paste/text";
 import { Paragraph } from "@twilio-paste/paragraph";
 import { Flex } from "@twilio-paste/flex";
-import { Menu, MenuButton, MenuItem, useMenuState } from "@twilio-paste/menu";
+import { Menu, MenuButton, MenuItem, useMenuState, MenuGroup } from "@twilio-paste/menu";
 import { Modal, ModalHeader, ModalHeading, ModalBody } from "@twilio-paste/modal";
 import { SearchIcon } from "@twilio-paste/icons/esm/SearchIcon";
 import { MoreIcon } from "@twilio-paste/icons/esm/MoreIcon";
@@ -37,13 +37,23 @@ const Header = ({ title, menuLinks }: Props) => {
               <MoreIcon decorative={false} title="Show Menu" color="colorTextBrandInverse" size="sizeIcon60" />
             </MenuButton>
             <Menu {...menu} aria-label="Preferences">
-              {menuLinks.map((menuLink) => (
-                <MenuItem key={menuLink.link} {...menu} onClick={() => navigate(menuLink.link)}>
-                  {menuLink.name}
+              <MenuGroup label="Site Pages">
+                {menuLinks.map((menuLink) => (
+                  <MenuItem key={menuLink.link} {...menu} onClick={() => navigate(menuLink.link)}>
+                    {menuLink.name}
+                  </MenuItem>
+                ))}
+              </MenuGroup>
+              <MenuGroup label="Posts">
+                <MenuItem {...menu} onClick={() => navigate("/categories")}>
+                  Categories
                 </MenuItem>
-              ))}
+                <MenuItem {...menu} onClick={() => navigate("/categories")}>
+                  Categories
+                </MenuItem>
+              </MenuGroup>
             </Menu>
-            <Link to="/">
+            <Link to="/" style={{ textDecoration: "none" }}>
               <Text color="colorTextInverse" as="h1" fontSize="fontSize80" _hover={{ color: "colorTextInverseWeak" }}>
                 {title}
               </Text>
