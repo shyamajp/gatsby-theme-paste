@@ -3,15 +3,12 @@ import { GatsbyImage, getImage } from "gatsby-plugin-image";
 
 import { Box } from "@twilio-paste/box";
 import { Stack } from "@twilio-paste/stack";
-import { Flex } from "@twilio-paste/flex";
-import { Button } from "@twilio-paste/button";
 import { Paragraph } from "@twilio-paste/paragraph";
 import { Text } from "@twilio-paste/text";
 import { DisplayPillGroup } from "@twilio-paste/display-pill-group";
 
 import { Post } from "../queries/post";
 import { useSiteMetadata } from "../queries/siteMetadata";
-import { Device, useDevice } from "../hooks/device";
 
 import { CategoryPill, PasteLink, TagPill } from "./common";
 
@@ -21,12 +18,11 @@ type Props = {
 
 const PostCard = ({ post }: Props) => {
   const { defaultImage } = useSiteMetadata();
-  const device = useDevice();
   const image = getImage(post.frontmatter.image);
   const defaultPostImage = getImage(defaultImage);
 
   return (
-    <Box width="100%" padding="space60">
+    <Box width="100%">
       <Stack orientation="vertical" spacing="space40">
         {image ? <GatsbyImage image={image} alt={post.frontmatter.title} /> : <GatsbyImage image={defaultPostImage} alt={post.frontmatter.title} />}
         <PasteLink to={`/blog/${post.fields.slug}`}>
@@ -55,11 +51,6 @@ const PostCard = ({ post }: Props) => {
         </DisplayPillGroup>
         <Paragraph>{post.excerpt}</Paragraph>
       </Stack>
-      <Flex hAlignContent={device > Device.S ? "left" : "center"}>
-        <Button variant="secondary" size={device > Device.S ? "small" : "default"}>
-          Read More
-        </Button>
-      </Flex>
     </Box>
   );
 };
