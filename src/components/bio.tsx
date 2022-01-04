@@ -14,11 +14,10 @@ const Bio = ({ author }: Props) => {
     <Widget title="About Author">
       <Avatar />
       <Text as="span" marginTop="space60" fontWeight="fontWeightSemibold" fontSize="fontSize40">
-        {author}
+        {author.name}
       </Text>
       <Text as="p" marginTop="space60" fontSize="fontSize40" textAlign="center">
-        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Debitis voluptate eligendi odio est autem enim nostrum perspiciatis, illo exercitationem consectetur nemo quisquam possimus quaerat
-        facilis animi aliquid. Illum, repellendus ex!
+        {author.description}
       </Text>
     </Widget>
   );

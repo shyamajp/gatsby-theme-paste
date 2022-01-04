@@ -44,7 +44,7 @@ const Footer = ({ title, author, social, menuLinks }: Props) => {
         </Flex>
         <Flex hAlignContent="center">
           <Text as="span">
-            {title} by {author}
+            {title} by {author.name}
           </Text>
         </Flex>
       </Stack>

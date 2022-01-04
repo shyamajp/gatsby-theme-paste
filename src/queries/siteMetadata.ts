@@ -14,7 +14,7 @@ type Social = {
 export type SiteMetadata = {
   title: string;
   description: string;
-  author: string;
+  author: { name: string; description: string };
   menuLinks: MenuLinks[];
   social: Social[];
   siteUrl: string;
@@ -43,7 +43,10 @@ export const useSiteMetadata = (): UseSiteMetadata => {
         site {
           siteMetadata {
             title
-            author
+            author {
+              name
+              description
+            }
             menuLinks {
               name
               link

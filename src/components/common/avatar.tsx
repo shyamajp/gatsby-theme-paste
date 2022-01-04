@@ -14,7 +14,7 @@ export const Avatar = ({ width }: Props) => {
 
   return (
     <Box width={width}>
-      <GatsbyImage image={image} alt={siteMetadata.author} style={{ borderRadius: "50%" }} />
+      <GatsbyImage image={image} alt={siteMetadata.author.name} style={{ borderRadius: "50%" }} />
     </Box>
   );
 };

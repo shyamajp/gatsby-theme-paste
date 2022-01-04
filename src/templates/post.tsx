@@ -49,7 +49,7 @@ const PostTemplate = ({ pageContext: { post } }: Props) => {
           </MediaFigure>
           <MediaBody as="div">
             <Text as="div" fontSize="fontSize30" fontWeight="fontWeightSemibold" lineHeight="lineHeight10">
-              {siteMetadata.author}
+              {siteMetadata.author.name}
             </Text>
             <Text as="div" color="colorTextWeak" fontSize="fontSize20" lineHeight="lineHeight10">
               {post.frontmatter.date} • {post.timeToRead} mins
