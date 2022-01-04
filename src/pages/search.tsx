@@ -29,7 +29,7 @@ const Blog = ({ data }) => {
       {results.map((result, i) => (
         <>
           <PostSummaryCard key={result.id} {...result} />
-          {i < results.length - 1 && <Separator orientation="horizontal" verticalSpacing="space60" />}
+          {i < results.length - 1 && <Separator orientation="horizontal" verticalSpacing="space80" />}
         </>
       ))}
     </Layout>

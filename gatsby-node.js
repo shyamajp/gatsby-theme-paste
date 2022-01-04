@@ -85,7 +85,7 @@ exports.createPages = async ({ actions, graphql, reporter }, options) => {
               title
               image {
                 childImageSharp {
-                  gatsbyImageData(width: 1200, placeholder: BLURRED)
+                  gatsbyImageData(width: 600, placeholder: BLURRED)
                 }
               }
               tags
@@ -107,7 +107,7 @@ exports.createPages = async ({ actions, graphql, reporter }, options) => {
               title
               image {
                 childImageSharp {
-                  gatsbyImageData(width: 1200, placeholder: BLURRED)
+                  gatsbyImageData(width: 600, placeholder: BLURRED)
                 }
               }
             }

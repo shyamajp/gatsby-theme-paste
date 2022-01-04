@@ -18,7 +18,6 @@ const Tags = ({ pageContext, data }: Props) => {
   const { edges, totalCount } = data.allMdx;
   const tagHeader = `${totalCount} post${totalCount === 1 ? "" : "s"} tagged with "${tag}"`;
 
-  console.log(pageContext);
   return (
     <Layout>
       <Breadcrumb>
