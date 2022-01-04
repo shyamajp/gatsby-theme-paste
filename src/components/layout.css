@@ -1,21 +1,21 @@
-.page {
+#page {
   width: 100%;
   display: flex;
 }
 
-.side {
+#side {
   max-width: 350px;
   height: calc(100vh - 72px);
   overflow-y: auto;
 }
 
 @media screen and (max-width: 1024px) {
-  .side {
+  #side {
     display: none;
   }
 }
 
-.main {
+#main {
   height: calc(100vh - 72px);
   overflow-y: auto;
   flex: 1;

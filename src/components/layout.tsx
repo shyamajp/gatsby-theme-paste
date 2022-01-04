@@ -27,20 +27,20 @@ export const Layout = ({ children }: Props) => {
     <Theme.Provider theme="default">
       <Flex vertical minHeight="100vh">
         <Header title={siteMetadata.title} menuLinks={siteMetadata.menuLinks} />
-        <div className="page">
-          <div className="side">
+        <div id="page">
+          <div id="side">
             <Box backgroundColor="colorBackgroundRowStriped">
               <Bio author={siteMetadata.author} />
               <Categories categories={categories} />
               <Tags tags={tags} />
             </Box>
           </div>
-          <div className="main">
+          <div id="main">
             <Flex vertical hAlignContent="center">
               <Box maxWidth={1200} padding="space80">
                 {children}
               </Box>
-              <Footer title={siteMetadata.title} author={siteMetadata.author} social={siteMetadata.social} menuLinks={siteMetadata.menuLinks} />
+              <Footer title={siteMetadata.title} author={siteMetadata.author} social={siteMetadata.social} quickLinks={siteMetadata.quickLinks} />
             </Flex>
           </div>
         </div>
