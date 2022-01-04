@@ -34,17 +34,17 @@ export const Layout = ({ children }: Props) => {
                 <Categories categories={categories} />
                 <Tags tags={tags} />
               </Box>
-            </Column>{" "}
+            </Column>
             <Column span={[12, 8, 9]}>
-              <Flex width="100%" hAlignContent="center">
+              <Flex vertical width="100%" hAlignContent="center">
                 <Box maxWidth={1200} padding="space80">
                   {children}
                 </Box>
+                <Footer title={siteMetadata.title} author={siteMetadata.author} social={siteMetadata.social} menuLinks={siteMetadata.menuLinks} />
               </Flex>
             </Column>
           </Grid>
         </Flex>
-        <Footer title={siteMetadata.title} author={siteMetadata.author} social={siteMetadata.social} menuLinks={siteMetadata.menuLinks} />
       </Flex>
     </Theme.Provider>
   );
