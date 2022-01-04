@@ -28,19 +28,19 @@ export const Layout = ({ children }: Props) => {
         <Header title={siteMetadata.title} menuLinks={siteMetadata.menuLinks} />
         <Flex width="100%" grow>
           <Grid vertical={[true, false, false]} equalColumnHeights>
-            <Column span={[12, 8, 9]}>
-              <Flex width="100%" hAlignContent="center">
-                <Box maxWidth={1200} padding="space80">
-                  {children}
-                </Box>
-              </Flex>
-            </Column>
             <Column span={[12, 4, 3]}>
               <Box backgroundColor="colorBackgroundRowStriped">
                 <Bio author={siteMetadata.author} />
                 <Categories categories={categories} />
                 <Tags tags={tags} />
               </Box>
+            </Column>{" "}
+            <Column span={[12, 8, 9]}>
+              <Flex width="100%" hAlignContent="center">
+                <Box maxWidth={1200} padding="space80">
+                  {children}
+                </Box>
+              </Flex>
             </Column>
           </Grid>
         </Flex>
