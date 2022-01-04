@@ -1,35 +1,37 @@
 import React from "react";
-import { graphql, navigate } from "gatsby";
+import { graphql } from "gatsby";
 import { useFlexSearch } from "react-use-flexsearch";
 import { parse } from "query-string";
 
+import { Separator } from "@twilio-paste/separator";
+import { Heading } from "@twilio-paste/heading";
+import { Breadcrumb, BreadcrumbItem } from "@twilio-paste/breadcrumb";
+
 import Layout from "../components/layout";
+import PostSummaryCard from "../components/post-summary-card";
 import { PasteLink } from "../components/common";
 
 const Blog = ({ data }) => {
   const { search } = parse(location.search);
-  const [query, setQuery] = React.useState(search || "");
-  const results = useFlexSearch(query, data.localSearchBlog.index, data.localSearchBlog.store);
+  const results = useFlexSearch(search, data.localSearchBlog.index, data.localSearchBlog.store);
 
   return (
     <Layout>
-      <input
-        id="search"
-        type="search"
-        placeholder="Search all posts"
-        value={query}
-        onChange={(e) => {
-          navigate(e.target.value ? `/search?search=${e.target.value}` : "/search");
-          setQuery(e.target.value);
-        }}
-      />
-      <ul>
-        {results.map(({ id, slug, title }) => (
-          <li key={id}>
-            <PasteLink to={`/blog/${slug}`}>{title}</PasteLink>
-          </li>
-        ))}
-      </ul>
+      <Breadcrumb>
+        <BreadcrumbItem>
+          <PasteLink to="/">All Posts</PasteLink>
+        </BreadcrumbItem>
+        <BreadcrumbItem>Search</BreadcrumbItem>
+      </Breadcrumb>
+      <Heading variant="heading10" as="h1">
+        {results.length} post{results.length === 1 ? "" : "s"} with "{search}"
+      </Heading>
+      {results.map((result, i) => (
+        <>
+          <PostSummaryCard key={result.id} {...result} />
+          {i < results.length - 1 && <Separator orientation="horizontal" verticalSpacing="space60" />}
+        </>
+      ))}
     </Layout>
   );
 };

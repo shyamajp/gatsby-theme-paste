@@ -61,6 +61,11 @@ module.exports = ({ contentPath = "content", postsPerPage = 10 }) => ({
                 frontmatter {
                   title
                   date(formatString: "MMMM DD, YYYY")
+                  image {
+                    childImageSharp {
+                      gatsbyImageData(width: 200, placeholder: BLURRED)
+                    }
+                  }
                 }
                 excerpt
                 body
@@ -70,15 +75,16 @@ module.exports = ({ contentPath = "content", postsPerPage = 10 }) => ({
         `,
         ref: "id",
         index: ["title", "body"],
-        store: ["id", "title", "slug", "date", "exerpt"],
+        store: ["id", "title", "slug", "date", "image", "excerpt"],
         normalizer: ({ data }) =>
           data.allMdx.nodes.map((node) => ({
             id: node.id,
             title: node.frontmatter.title,
             slug: node.fields.slug,
             date: node.frontmatter.date,
-            exerpt: node.excerpt,
+            excerpt: node.excerpt,
             body: node.body,
+            image: node.frontmatter.image,
           })),
       },
     },
