@@ -48,8 +48,8 @@ const Header = ({ title, menuLinks }: Props) => {
                 <MenuItem {...menu} onClick={() => navigate("/categories")}>
                   Categories
                 </MenuItem>
-                <MenuItem {...menu} onClick={() => navigate("/categories")}>
-                  Categories
+                <MenuItem {...menu} onClick={() => navigate("/tags")}>
+                  Tags
                 </MenuItem>
               </MenuGroup>
             </Menu>
