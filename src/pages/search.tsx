@@ -27,10 +27,10 @@ const Blog = ({ data, location }) => {
         {results.length} post{results.length === 1 ? "" : "s"} with "{search}"
       </Heading>
       {results.map((result, i) => (
-        <>
-          <PostSummaryCard key={result.id} {...result} />
+        <React.Fragment key={result.id}>
+          <PostSummaryCard {...result} />
           {i < results.length - 1 && <Separator orientation="horizontal" verticalSpacing="space80" />}
-        </>
+        </React.Fragment>
       ))}
     </Layout>
   );

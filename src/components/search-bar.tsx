@@ -1,14 +1,16 @@
 import React from "react";
 import { navigate } from "gatsby";
+
 import { Input } from "@twilio-paste/input";
 import { SearchIcon } from "@twilio-paste/icons/esm/SearchIcon";
 
-export const Search = () => {
+const SearchBar = ({ handleClose }) => {
   const [search, setSearch] = React.useState("");
 
   return (
     <form
       onSubmit={(e) => {
+        handleClose();
         e.preventDefault();
         navigate(`/search?search=${search}`);
         setSearch("");
@@ -18,3 +20,5 @@ export const Search = () => {
     </form>
   );
 };
+
+export default SearchBar;

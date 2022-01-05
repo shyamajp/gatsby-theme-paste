@@ -5,18 +5,16 @@ import { Box } from "@twilio-paste/box";
 import { Stack } from "@twilio-paste/stack";
 import { Button } from "@twilio-paste/button";
 import { Text } from "@twilio-paste/text";
-import { Paragraph } from "@twilio-paste/paragraph";
 import { Flex } from "@twilio-paste/flex";
 import { Menu, MenuButton, MenuItem, useMenuState, MenuGroup } from "@twilio-paste/menu";
-import { Modal, ModalHeader, ModalHeading, ModalBody } from "@twilio-paste/modal";
 import { SearchIcon } from "@twilio-paste/icons/esm/SearchIcon";
 import { MoreIcon } from "@twilio-paste/icons/esm/MoreIcon";
 
 import { SiteMetadata } from "../queries/siteMetadata";
-
-import { Search } from "./search";
-import { PasteLink } from "./common";
 import { Device, useDevice } from "../hooks/device";
+
+import SearchBar from "./search-bar";
+import SearchModal from "./search-modal";
 
 type Props = Pick<SiteMetadata, "title" | "menuLinks">;
 
@@ -77,26 +75,11 @@ const Header = ({ title, menuLinks }: Props) => {
                   </Text>
                 </Link>
               ))}
-              <Search />
+              <SearchBar handleClose={handleClose} />
             </Stack>
           </>
         )}
-        <Modal isOpen={isOpen} size="default" ariaLabelledby="search-modal" onDismiss={handleClose}>
-          <ModalHeader>
-            <ModalHeading as="h3">Search</ModalHeading>
-          </ModalHeader>
-          <ModalBody>
-            <Flex vertical hAlignContent="center">
-              <Box marginTop="space40" marginBottom="space60">
-                <Search />
-              </Box>
-              <Paragraph>
-                Type something relevant to the post(s) you are looking for. This search feature will go through <Text as="b">title</Text> and <Text as="b">body</Text> of every single post.
-                Alternatively, you can also filter posts by <PasteLink to="/categories">categories</PasteLink> or <PasteLink to="/tags">tags</PasteLink>.
-              </Paragraph>
-            </Flex>
-          </ModalBody>
-        </Modal>
+        <SearchModal isOpen={isOpen} handleClose={handleClose} />
       </Flex>
     </Box>
   );
