@@ -1,8 +1,6 @@
 import React from "react";
 
-import { DisplayPillGroup } from "@twilio-paste/display-pill-group";
-
-import { Widget, CategoryPill } from "./common";
+import { Widget, CategoryPill, PostGroupPillGroup } from "./common";
 import { sortByTotalCount } from "../utils/queries";
 import { PostGroup } from "../types";
 
@@ -13,13 +11,13 @@ type Props = {
 const Categories = ({ categories }: Props) => {
   return (
     <Widget title="Categories">
-      <DisplayPillGroup aria-label="categories">
+      <PostGroupPillGroup aria-label="categories" justifyContent="center">
         {categories.sort(sortByTotalCount).map(({ fieldValue, totalCount }) => (
           <CategoryPill key={fieldValue} to={`/categories/${fieldValue.toLowerCase()}`}>
             {fieldValue} {totalCount}
           </CategoryPill>
         ))}
-      </DisplayPillGroup>
+      </PostGroupPillGroup>
     </Widget>
   );
 };

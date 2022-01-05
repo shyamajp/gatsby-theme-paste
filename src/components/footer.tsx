@@ -15,7 +15,7 @@ import { ChevronUpIcon } from "@twilio-paste/icons/esm/ChevronUpIcon";
 import { SiteMetadata } from "../queries/siteMetadata";
 import { PostGroup } from "../types";
 
-import { CategoryPill, PasteLink, TagPill } from "./common";
+import { CategoryPill, PasteLink, PostGroupPillGroup, TagPill } from "./common";
 
 type Props = {
   siteMetadata: SiteMetadata;
@@ -69,20 +69,20 @@ const Footer = ({ siteMetadata, categories, tags }: Props) => {
         <Column span={[12, 6, 3]}>
           <FooterBlock title="Categories and Tags">
             <Stack orientation="vertical" spacing="space60">
-              <DisplayPillGroup aria-label="categories">
+              <PostGroupPillGroup aria-label="categories" justifyContent="center">
                 {categories.map(({ fieldValue }) => (
                   <CategoryPill to={`/categories/${fieldValue}`} key={fieldValue}>
                     {fieldValue}
                   </CategoryPill>
                 ))}
-              </DisplayPillGroup>
-              <DisplayPillGroup aria-label="tags">
+              </PostGroupPillGroup>
+              <PostGroupPillGroup aria-label="tags" justifyContent="center">
                 {tags.map(({ fieldValue }) => (
                   <TagPill to={`/categories/${fieldValue}`} key={fieldValue}>
                     {fieldValue}
                   </TagPill>
                 ))}
-              </DisplayPillGroup>
+              </PostGroupPillGroup>
             </Stack>
           </FooterBlock>
         </Column>
