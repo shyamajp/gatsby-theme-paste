@@ -10,8 +10,7 @@ import { usePostGroups } from "../queries/post";
 import Header from "./header";
 import Footer from "./footer";
 import Bio from "./bio";
-import Categories from "./categories";
-import Tags from "./tags";
+import PostGroups from "./post-groups";
 import Social from "./social";
 
 import "./layout.css";
@@ -32,8 +31,8 @@ export const Layout = ({ children }: Props) => {
           <div id="side">
             <Box padding="space60" backgroundColor="colorBackgroundRowStriped" minHeight="100%">
               <Bio author={siteMetadata.author} />
-              <Categories categories={categories} />
-              <Tags tags={tags} />
+              <PostGroups postGroups={categories} title="Categories" />
+              <PostGroups postGroups={tags} title="Tags" />
               <Social social={siteMetadata.social} />
             </Box>
           </div>
