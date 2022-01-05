@@ -2,6 +2,7 @@ import { graphql, useStaticQuery } from "gatsby";
 import { ImageDataLike } from "gatsby-plugin-image";
 
 import { PostGroup } from "../types";
+import { sortByTotalCount } from "../utils/queries";
 
 type PageFields = {
   slug: string;
@@ -87,5 +88,5 @@ export const usePostGroups = (): UsePostGroups => {
       }
     `
   );
-  return { categories: categories.group, tags: tags.group };
+  return { categories: categories.group.sort(sortByTotalCount), tags: tags.group.sort(sortByTotalCount) };
 };

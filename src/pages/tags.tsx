@@ -3,8 +3,6 @@ import React from "react";
 import { Heading } from "@twilio-paste/heading";
 import { DisplayPillGroup } from "@twilio-paste/display-pill-group";
 
-import { sortByTotalCount } from "../utils/queries";
-
 import Layout from "../components/layout";
 import { TagPill } from "../components/common";
 import { usePostGroups } from "../queries/post";
@@ -18,7 +16,7 @@ const TagsPage = () => {
         Tags
       </Heading>
       <DisplayPillGroup aria-label="tags">
-        {tags.sort(sortByTotalCount).map((tag) => (
+        {tags.map((tag) => (
           <TagPill key={tag.fieldValue} to={`/tags/${tag.fieldValue.toLowerCase()}/`}>
             {tag.fieldValue} ({tag.totalCount})
           </TagPill>
