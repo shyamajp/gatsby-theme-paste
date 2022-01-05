@@ -74,12 +74,12 @@ export const usePostGroups = (): UsePostGroups => {
   const { categories, tags } = useStaticQuery(
     graphql`
       query {
-        categories: allMdx(limit: 2000, filter: { frontmatter: { type: { eq: "post" } } }) {
+        categories: allMdx(filter: { frontmatter: { type: { eq: "post" } } }) {
           group(field: frontmatter___categories) {
             ...PostGroup
           }
         }
-        tags: allMdx(limit: 2000, filter: { frontmatter: { type: { eq: "post" } } }) {
+        tags: allMdx(filter: { frontmatter: { type: { eq: "post" } } }) {
           group(field: frontmatter___tags) {
             ...PostGroup
           }

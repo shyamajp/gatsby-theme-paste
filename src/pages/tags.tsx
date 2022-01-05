@@ -1,41 +1,31 @@
 import React from "react";
-import { graphql } from "gatsby";
 
-import { PostGroupData } from "../types";
+import { Heading } from "@twilio-paste/heading";
+import { DisplayPillGroup } from "@twilio-paste/display-pill-group";
+
 import { sortByTotalCount } from "../utils/queries";
 
 import Layout from "../components/layout";
-import { PasteLink } from "../components/common";
+import { TagPill } from "../components/common";
+import { usePostGroups } from "../queries/post";
 
-type Props = PostGroupData;
-
-const TagsPage = ({ data }: Props) => {
-  const tags = data.allMdx.group;
+const TagsPage = () => {
+  const { tags } = usePostGroups();
 
   return (
     <Layout>
-      <h1>Tags</h1>
-      <ul>
+      <Heading variant="heading10" as="h1">
+        Tags
+      </Heading>
+      <DisplayPillGroup aria-label="tags">
         {tags.sort(sortByTotalCount).map((tag) => (
-          <li key={tag.fieldValue}>
-            <PasteLink to={`/tags/${tag.fieldValue.toLowerCase()}/`}>
-              {tag.fieldValue} ({tag.totalCount})
-            </PasteLink>
-          </li>
+          <TagPill key={tag.fieldValue} to={`/tags/${tag.fieldValue.toLowerCase()}/`}>
+            {tag.fieldValue} ({tag.totalCount})
+          </TagPill>
         ))}
-      </ul>
+      </DisplayPillGroup>
     </Layout>
   );
 };
 
 export default TagsPage;
-
-export const pageQuery = graphql`
-  query {
-    allMdx(limit: 2000, filter: { frontmatter: { type: { eq: "post" } } }) {
-      group(field: frontmatter___tags) {
-        ...PostGroup
-      }
-    }
-  }
-`;
