@@ -71,12 +71,16 @@ const Footer = ({ siteMetadata, categories, tags }: Props) => {
             <Stack orientation="vertical" spacing="space60">
               <DisplayPillGroup aria-label="categories">
                 {categories.map(({ fieldValue }) => (
-                  <CategoryPill to={`/categories/${fieldValue}`}>{fieldValue}</CategoryPill>
+                  <CategoryPill to={`/categories/${fieldValue}`} key={fieldValue}>
+                    {fieldValue}
+                  </CategoryPill>
                 ))}
               </DisplayPillGroup>
               <DisplayPillGroup aria-label="tags">
                 {tags.map(({ fieldValue }) => (
-                  <TagPill to={`/categories/${fieldValue}`}>{fieldValue}</TagPill>
+                  <TagPill to={`/categories/${fieldValue}`} key={fieldValue}>
+                    {fieldValue}
+                  </TagPill>
                 ))}
               </DisplayPillGroup>
             </Stack>

@@ -57,7 +57,7 @@ const PostTemplate = ({ pageContext: { post } }: Props) => {
           </MediaBody>
         </MediaObject>
       </Box>
-      <GatsbyImage image={image} alt={post.frontmatter.title} />
+      {image && <GatsbyImage image={image} alt={post.frontmatter.title} />}
       <MDXProvider components={shortcodes}>
         <MDXRenderer frontmatter={post.frontmatter}>{post.body}</MDXRenderer>
       </MDXProvider>

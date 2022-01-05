@@ -11,7 +11,7 @@ import Layout from "../components/layout";
 import PostSummaryCard from "../components/post-summary-card";
 import { PasteLink } from "../components/common";
 
-const Blog = ({ data }) => {
+const Blog = ({ data, location }) => {
   const { search } = parse(location.search);
   const results = useFlexSearch(search, data.localSearchBlog.index, data.localSearchBlog.store);
 
