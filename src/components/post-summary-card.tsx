@@ -4,13 +4,12 @@ import { GatsbyImage, getImage, ImageDataLike } from "gatsby-plugin-image";
 import { Box } from "@twilio-paste/box";
 import { Grid, Column } from "@twilio-paste/grid";
 import { Stack } from "@twilio-paste/stack";
-import { DisplayPillGroup } from "@twilio-paste/display-pill-group";
 import { Paragraph } from "@twilio-paste/paragraph";
 import { Text } from "@twilio-paste/text";
 
 import { useSiteMetadata } from "../queries/siteMetadata";
 
-import { CategoryPill, PasteLink, TagPill } from "./common";
+import { PasteLink, PostGroupPills } from "./common";
 
 type Props = {
   id: string;
@@ -36,19 +35,13 @@ const PostSummaryCard = ({ slug, title, date, image, excerpt, tags, categories }
         </Column>
         <Column span={[12, 8, 8]} vertical={[true, false, false]}>
           <Stack orientation="vertical" spacing="space40">
-            <DisplayPillGroup aria-label="categories">
-              {categories?.map((category) => (
-                <CategoryPill to={`/categories/${category.toLowerCase()}`}>{category}</CategoryPill>
-              ))}
-              {tags?.map((tag) => (
-                <TagPill to={`/tags/${tag.toLowerCase()}`}>{tag}</TagPill>
-              ))}
-            </DisplayPillGroup>
             <PasteLink to={`/blog/${slug}`}>
               <Text as="h2" fontSize="fontSize50">
                 {title}
               </Text>
             </PasteLink>
+            <PostGroupPills type="categories" postGroups={categories} />
+            <PostGroupPills type="tags" postGroups={tags} />
             <Text as="small" color="colorTextWeak" fontSize="fontSize20">
               {date}
             </Text>

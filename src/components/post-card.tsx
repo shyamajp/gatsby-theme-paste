@@ -5,12 +5,11 @@ import { Box } from "@twilio-paste/box";
 import { Stack } from "@twilio-paste/stack";
 import { Paragraph } from "@twilio-paste/paragraph";
 import { Text } from "@twilio-paste/text";
-import { DisplayPillGroup } from "@twilio-paste/display-pill-group";
 
 import { Post } from "../queries/post";
 import { useSiteMetadata } from "../queries/siteMetadata";
 
-import { CategoryPill, PasteLink, TagPill } from "./common";
+import { PasteLink, PostGroupPills } from "./common";
 
 type Props = {
   post: Pick<Post, "frontmatter" | "fields" | "excerpt">;
@@ -35,20 +34,8 @@ const PostCard = ({ post }: Props) => {
             {post.frontmatter.date}
           </Text>
         </Box>
-        <DisplayPillGroup aria-label="categories">
-          {post.frontmatter.categories?.map((category) => (
-            <CategoryPill key={category} to={`/categories/${category.toLowerCase()}`}>
-              {category}
-            </CategoryPill>
-          ))}
-        </DisplayPillGroup>
-        <DisplayPillGroup aria-label="tags">
-          {post.frontmatter.tags?.map((tag) => (
-            <TagPill key={tag} to={`/tags/${tag.toLowerCase()}`}>
-              {tag}
-            </TagPill>
-          ))}
-        </DisplayPillGroup>
+        <PostGroupPills type="categories" postGroups={post.frontmatter.categories} />
+        <PostGroupPills type="tags" postGroups={post.frontmatter.tags} />
         <Paragraph>{post.excerpt}</Paragraph>
       </Stack>
     </Box>

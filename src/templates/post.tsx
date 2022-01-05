@@ -6,15 +6,15 @@ import { MDXProvider } from "@mdx-js/react";
 import { Heading } from "@twilio-paste/heading";
 import { Box } from "@twilio-paste/box";
 import { Text } from "@twilio-paste/text";
+import { Stack } from "@twilio-paste/stack";
 import { MediaObject, MediaFigure, MediaBody } from "@twilio-paste/media-object";
-import { DisplayPillGroup } from "@twilio-paste/display-pill-group";
 
 import { PageContext } from "../types";
 import { Post } from "../queries/post";
 import { useSiteMetadata } from "../queries/siteMetadata";
 
 import Layout from "../components/layout";
-import { Avatar, CategoryPill, PasteLink, TagPill } from "../components/common";
+import { Avatar, PasteLink, PostGroupPills } from "../components/common";
 
 type Props = PageContext<"post", Post>;
 
@@ -25,38 +25,28 @@ const PostTemplate = ({ pageContext: { post } }: Props) => {
 
   return (
     <Layout>
-      <DisplayPillGroup aria-label="categories">
-        {post.frontmatter.categories?.map((category) => (
-          <CategoryPill key={category} to={`/categories/${category.toLowerCase()}`}>
-            {category}
-          </CategoryPill>
-        ))}
-      </DisplayPillGroup>
-      <Heading variant="heading10" as="h1" marginBottom="space0">
-        {post.frontmatter.title}
-      </Heading>
-      <DisplayPillGroup aria-label="tags">
-        {post.frontmatter.tags?.map((tag) => (
-          <TagPill key={tag} to={`/tags/${tag.toLowerCase()}`}>
-            {tag}
-          </TagPill>
-        ))}
-      </DisplayPillGroup>
-      <Box paddingTop="space40" paddingBottom="space60">
-        <MediaObject as="div" verticalAlign="center">
-          <MediaFigure as="div" spacing="space40">
-            <Avatar width="2rem" />
-          </MediaFigure>
-          <MediaBody as="div">
-            <Text as="div" fontSize="fontSize30" fontWeight="fontWeightSemibold" lineHeight="lineHeight10">
-              {siteMetadata.author.name}
-            </Text>
-            <Text as="div" color="colorTextWeak" fontSize="fontSize20" lineHeight="lineHeight10">
-              {post.frontmatter.date} • {post.timeToRead} mins
-            </Text>
-          </MediaBody>
-        </MediaObject>
-      </Box>
+      <Stack orientation="vertical" spacing="space40">
+        <PostGroupPills type="categories" postGroups={post.frontmatter.categories} />
+        <Heading variant="heading10" as="h1" marginBottom="space0">
+          {post.frontmatter.title}
+        </Heading>
+        <PostGroupPills type="tags" postGroups={post.frontmatter.tags} />
+        <Box paddingTop="space40" paddingBottom="space60">
+          <MediaObject as="div" verticalAlign="center">
+            <MediaFigure as="div" spacing="space40">
+              <Avatar width="2rem" />
+            </MediaFigure>
+            <MediaBody as="div">
+              <Text as="div" fontSize="fontSize30" fontWeight="fontWeightSemibold" lineHeight="lineHeight10">
+                {siteMetadata.author.name}
+              </Text>
+              <Text as="div" color="colorTextWeak" fontSize="fontSize20" lineHeight="lineHeight10">
+                {post.frontmatter.date} • {post.timeToRead} mins
+              </Text>
+            </MediaBody>
+          </MediaObject>
+        </Box>
+      </Stack>
       {image && <GatsbyImage image={image} alt={post.frontmatter.title} />}
       <MDXProvider components={shortcodes}>
         <MDXRenderer frontmatter={post.frontmatter}>{post.body}</MDXRenderer>

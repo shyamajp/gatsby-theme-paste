@@ -31,8 +31,8 @@ export const Layout = ({ children }: Props) => {
           <div id="side">
             <Box padding="space60" backgroundColor="colorBackgroundRowStriped" minHeight="100%">
               <Bio author={siteMetadata.author} />
-              <PostGroups postGroups={categories} title="Categories" />
-              <PostGroups postGroups={tags} title="Tags" />
+              <PostGroups postGroups={categories} type="categories" />
+              <PostGroups postGroups={tags} type="tags" />
               <Social social={siteMetadata.social} />
             </Box>
           </div>
@@ -41,7 +41,7 @@ export const Layout = ({ children }: Props) => {
               <Box flex={1} maxWidth={1000} padding="space120">
                 {children}
               </Box>
-              <Footer siteMetadata={siteMetadata} categories={categories.splice(0, 5)} tags={tags.splice(0, 5)} />
+              <Footer siteMetadata={siteMetadata} categories={categories} tags={tags} />
             </Flex>
           </div>
         </div>

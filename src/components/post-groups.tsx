@@ -3,16 +3,17 @@ import React from "react";
 import { Box } from "@twilio-paste/box";
 
 import { PostGroup } from "../types";
+import { toTitleCase } from "../utils";
 
-import { Widget, CategoryPill, PostGroupPillGroup, PasteLink, TagPill } from "./common";
+import { Widget, PasteLink, PostGroupPills } from "./common";
 
 type PostGroupProps = {
   postGroups: PostGroup[];
-  title: "Categories" | "Tags";
+  type: "categories" | "tags";
 };
 
-const PostGroups = ({ postGroups, title }: PostGroupProps) => {
-  const lowerCasedTitle = title.toLowerCase();
+const PostGroups = ({ postGroups, type }: PostGroupProps) => {
+  const title = toTitleCase(type);
 
   if (!postGroups.length) {
     return <></>;
@@ -20,22 +21,10 @@ const PostGroups = ({ postGroups, title }: PostGroupProps) => {
 
   return (
     <Widget title={title}>
-      <PostGroupPillGroup aria-label={lowerCasedTitle} justifyContent="center">
-        {postGroups.slice(0, 20).map(({ fieldValue, totalCount }) => {
-          return title === "Categories" ? (
-            <CategoryPill key={fieldValue} to={`/${lowerCasedTitle}/${fieldValue.toLowerCase()}`}>
-              {fieldValue} {totalCount}
-            </CategoryPill>
-          ) : (
-            <TagPill key={fieldValue} to={`/${lowerCasedTitle}/${fieldValue.toLowerCase()}`}>
-              {fieldValue} {totalCount}
-            </TagPill>
-          );
-        })}
-      </PostGroupPillGroup>
+      <PostGroupPills type={type} postGroups={postGroups} justifyContent="center" limit={20} />
       {postGroups.length > 20 && (
         <Box marginTop="space30">
-          <PasteLink to={`/${lowerCasedTitle}`}>See all {lowerCasedTitle}</PasteLink>
+          <PasteLink to={`/${type}`}>See all {type}</PasteLink>
         </Box>
       )}
     </Widget>

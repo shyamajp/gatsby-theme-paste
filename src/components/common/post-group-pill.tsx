@@ -1,30 +1,20 @@
+// A slightly modified version of DisplayPillGroup and DisplayPill by @twilio-paste/display-pill-group
+
 import React from "react";
 import { navigate } from "gatsby";
 
 import { Box } from "@twilio-paste/box";
 import { JustifyContent } from "@twilio-paste/style-props";
 
-// A slightly modified version of DisplayPillGroup and DisplayPill by @twilio-paste/display-pill-group
-
-type PostGroupPillGroupProps = {
-  children: React.ReactNode;
-  justifyContent?: JustifyContent;
-};
-
-export const PostGroupPillGroup = ({ children, justifyContent = "flex-start" }: PostGroupPillGroupProps) => {
-  return (
-    <Box as="ul" margin="space0" padding="space0" display="flex" justifyContent={justifyContent} flexWrap="wrap" rowGap="space30" columnGap="space30">
-      {children}
-    </Box>
-  );
-};
+import { PostGroup } from "../../types";
+import { isString } from "../../utils";
 
 type PostGroupPillProps = {
   to: string;
   children: React.ReactNode;
 };
 
-export const CategoryPill = ({ to, children }: PostGroupPillProps) => {
+const CategoryPill = ({ to, children }: PostGroupPillProps) => {
   return (
     <Box
       as="a"
@@ -58,7 +48,7 @@ export const CategoryPill = ({ to, children }: PostGroupPillProps) => {
   );
 };
 
-export const TagPill = ({ to, children }: PostGroupPillProps) => {
+const TagPill = ({ to, children }: PostGroupPillProps) => {
   return (
     <Box
       as="a"
@@ -90,5 +80,50 @@ export const TagPill = ({ to, children }: PostGroupPillProps) => {
     >
       # {children}
     </Box>
+  );
+};
+
+type PostGroupPillGroupProps = {
+  children: React.ReactNode;
+  justifyContent?: JustifyContent;
+};
+
+const PostGroupPillGroup = ({ children, justifyContent = "flex-start" }: PostGroupPillGroupProps) => {
+  return (
+    <Box as="ul" margin="space0" padding="space0" display="flex" justifyContent={justifyContent} flexWrap="wrap" rowGap="space30" columnGap="space30">
+      {children}
+    </Box>
+  );
+};
+
+type PostGroupPillsProps = {
+  postGroups: PostGroup[] | string[];
+  type: "tags" | "categories";
+  justifyContent?: JustifyContent;
+  limit?: number;
+};
+
+export const PostGroupPills = ({ type, postGroups, justifyContent = "flex-start", limit }: PostGroupPillsProps) => {
+  if (!postGroups) {
+    return <></>;
+  }
+
+  return (
+    <PostGroupPillGroup aria-label={type} justifyContent={justifyContent}>
+      {postGroups.slice(0, limit).map((postGroup) => {
+        const pill = isString(postGroup) ? postGroup : `${postGroup.fieldValue} ${postGroup.totalCount}`;
+        const link = isString(postGroup) ? postGroup : postGroup.fieldValue.toLowerCase();
+
+        return type === "categories" ? (
+          <CategoryPill key={link} to={`/${type}/${link}`}>
+            {pill}
+          </CategoryPill>
+        ) : (
+          <TagPill key={link} to={`/${type}/${link}`}>
+            {pill}
+          </TagPill>
+        );
+      })}
+    </PostGroupPillGroup>
   );
 };

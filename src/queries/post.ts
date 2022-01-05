@@ -2,7 +2,7 @@ import { graphql, useStaticQuery } from "gatsby";
 import { ImageDataLike } from "gatsby-plugin-image";
 
 import { PostGroup } from "../types";
-import { sortByTotalCount } from "../utils/queries";
+import { sortByTotalCount } from "../utils";
 
 type PageFields = {
   slug: string;

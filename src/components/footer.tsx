@@ -2,7 +2,6 @@ import React from "react";
 
 import { Anchor } from "@twilio-paste/anchor";
 import { Box } from "@twilio-paste/box";
-import { DisplayPillGroup } from "@twilio-paste/display-pill-group";
 import { Button } from "@twilio-paste/button";
 import { Grid, Column } from "@twilio-paste/grid";
 import { Heading } from "@twilio-paste/heading";
@@ -15,7 +14,7 @@ import { ChevronUpIcon } from "@twilio-paste/icons/esm/ChevronUpIcon";
 import { SiteMetadata } from "../queries/siteMetadata";
 import { PostGroup } from "../types";
 
-import { CategoryPill, PasteLink, PostGroupPillGroup, TagPill } from "./common";
+import { PasteLink, PostGroupPills } from "./common";
 
 type Props = {
   siteMetadata: SiteMetadata;
@@ -69,20 +68,8 @@ const Footer = ({ siteMetadata, categories, tags }: Props) => {
         <Column span={[12, 6, 3]}>
           <FooterBlock title="Categories and Tags">
             <Stack orientation="vertical" spacing="space60">
-              <PostGroupPillGroup aria-label="categories" justifyContent="center">
-                {categories.map(({ fieldValue }) => (
-                  <CategoryPill to={`/categories/${fieldValue}`} key={fieldValue}>
-                    {fieldValue}
-                  </CategoryPill>
-                ))}
-              </PostGroupPillGroup>
-              <PostGroupPillGroup aria-label="tags" justifyContent="center">
-                {tags.map(({ fieldValue }) => (
-                  <TagPill to={`/categories/${fieldValue}`} key={fieldValue}>
-                    {fieldValue}
-                  </TagPill>
-                ))}
-              </PostGroupPillGroup>
+              <PostGroupPills type="categories" postGroups={categories} justifyContent="center" limit={5} />
+              <PostGroupPills type="tags" postGroups={tags} justifyContent="center" limit={5} />
             </Stack>
           </FooterBlock>
         </Column>
