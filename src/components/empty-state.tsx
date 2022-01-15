@@ -16,9 +16,9 @@ type Props = {
 const EmptyState = ({ title, description, action }: Props) => {
   return (
     <Flex vAlignContent="center" hAlignContent="center" wrap>
-      <Box maxWidth={400}>
-        <StaticImage src="../../static/Actual size_PNG-illustration-search.png" alt="Not Found" placeholder="blurred" />
-      </Box>
+      {/* <Box maxWidth={400}>
+        <StaticImage src="../../static/illustration-search.png" alt="Not Found" placeholder="blurred" />
+      </Box> */}
       <Flex vertical grow marginTop="space80" hAlignContent="center">
         <Heading as="h3" variant="heading30">
           {title}
