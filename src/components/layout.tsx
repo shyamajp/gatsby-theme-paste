@@ -37,7 +37,7 @@ const Layout = ({ children }: Props) => {
             </Box>
           </div>
           <div id="main">
-            <Flex vertical hAlignContent="center">
+            <Flex vertical hAlignContent="center" minHeight="100%">
               <Box flex={1} maxWidth={1000} padding="space120">
                 {children}
               </Box>
