@@ -1,6 +1,8 @@
 # Gatsby Theme for Paste
 
-A Gatsby theme for creating a blog.
+A Gatsby blog theme using [Paste](https://paste.twilio.design/) with high accecibility and inclusion.
+
+> NOTE: This is NOT an official Gatsby theme provided by Twilio.
 
 ## Installation
 
@@ -246,3 +248,7 @@ via Discussions
 ### Make a contribution
 
 via PR
+
+## License
+
+[MIT](./LICENSE)
