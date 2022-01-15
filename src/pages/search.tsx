@@ -5,12 +5,12 @@ import { parse } from "query-string";
 
 import { Separator } from "@twilio-paste/separator";
 import { Heading } from "@twilio-paste/heading";
-import { Button } from "@twilio-paste/button";
 import { Breadcrumb, BreadcrumbItem } from "@twilio-paste/breadcrumb";
 
 import Layout from "../components/layout";
 import PostSummaryCard from "../components/post-summary-card";
 import EmptyState from "../components/empty-state";
+import SearchModal from "../components/search-modal";
 import { PasteLink } from "../components/common";
 
 const Blog = ({ data, location }) => {
@@ -36,7 +36,7 @@ const Blog = ({ data, location }) => {
           </React.Fragment>
         ))
       ) : (
-        <EmptyState title="No Search Results Found" description={`This query "${search}" did not match any existing posts.`} action={<Button variant="primary">Try another query</Button>} />
+        <EmptyState title="No Search Results Found" description={`This query "${search}" did not match any existing posts.`} action={<SearchModal variant="primary">Try another query</SearchModal>} />
       )}
     </Layout>
   );

@@ -56,9 +56,9 @@ const Header = ({ title, menuLinks }: Props) => {
                 {title}
               </Text>
             </Link>
-            <Button variant="reset" size="reset" onClick={handleOpen}>
+            <SearchModal variant="reset" size="reset">
               <SearchIcon decorative={false} title="Search" color="colorTextBrandInverse" size="sizeIcon60" />
-            </Button>
+            </SearchModal>
           </>
         ) : (
           <>
@@ -79,7 +79,6 @@ const Header = ({ title, menuLinks }: Props) => {
             </Stack>
           </>
         )}
-        <SearchModal isOpen={isOpen} handleClose={handleClose} />
       </Flex>
     </Box>
   );
