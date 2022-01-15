@@ -1,7 +1,7 @@
 import React from "react";
 import { navigate } from "gatsby";
 
-import { Pagination as PastePagination, PaginationItems, PaginationArrow, PaginationNumbers, PaginationNumber } from "@twilio-paste/pagination";
+import { Pagination as PastePagination, PaginationItems, PaginationEllipsis, PaginationArrow, PaginationNumbers, PaginationNumber } from "@twilio-paste/pagination";
 
 export type PaginationProps = {
   totalPages: number;
@@ -12,6 +12,24 @@ export type PaginationProps = {
     first: string;
     pagePrefix: string;
   };
+};
+
+// https://paste.twilio.design/components/pagination/#using-paginationellipsis
+const filterPages = (currentPage: number, totalPages: number): Array<number | null> => {
+  // show all
+  if (totalPages <= 7) {
+    return [...Array(totalPages).keys()].map((x) => x + 1);
+  }
+  // first
+  if (currentPage <= 4) {
+    return [1, 2, 3, 4, 5, null, totalPages];
+  }
+  // last
+  if (currentPage >= totalPages - 3) {
+    return [1, null, totalPages - 4, totalPages - 3, totalPages - 2, totalPages - 1, totalPages];
+  }
+  // middle
+  return [1, null, currentPage - 1, currentPage, currentPage + 1, null, totalPages];
 };
 
 export const Pagination = ({ totalPages, currentPage, totalPosts, postsPerPage, link = { first: "/", pagePrefix: "/blog" } }: PaginationProps) => {
@@ -34,12 +52,13 @@ export const Pagination = ({ totalPages, currentPage, totalPosts, postsPerPage, 
       <PaginationItems>
         <PaginationArrow label="Go to previous page" variant="back" onClick={goToPreviousPage} disabled={currentPage === 1} />
         <PaginationNumbers pageLabel={results}>
-          {Array.from(Array(totalPages), (_, i) => {
-            const page = i + 1;
-            return (
+          {filterPages(currentPage, totalPages).map((page) => {
+            return page ? (
               <PaginationNumber key={page} label={`Go to page ${page}`} isCurrent={page === currentPage} onClick={() => goToPage(page)}>
                 {page}
               </PaginationNumber>
+            ) : (
+              <PaginationEllipsis label="Collapsed pages" />
             );
           })}
         </PaginationNumbers>
