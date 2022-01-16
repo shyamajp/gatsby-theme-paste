@@ -4,8 +4,7 @@ import { Text } from "@twilio-paste/text";
 
 import { SiteMetadata } from "../queries/siteMetadata";
 
-import { Avatar } from "./common";
-import { Widget } from "./common/widget";
+import { Avatar, Widget } from "./common";
 
 type Props = Pick<SiteMetadata, "author">;
 
