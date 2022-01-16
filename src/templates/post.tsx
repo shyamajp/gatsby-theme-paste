@@ -47,7 +47,7 @@ const PostTemplate = ({ pageContext: { post } }: Props) => {
                 {siteMetadata.author.name}
               </Text>
               <Text as="div" color="colorTextWeak" fontSize="fontSize20" lineHeight="lineHeight10">
-                {post.frontmatter.date} • {post.timeToRead} mins
+                {post.frontmatter.date} • {post.timeToRead} min{post.timeToRead === 1 ? "" : "s"}
               </Text>
             </MediaBody>
           </MediaObject>
