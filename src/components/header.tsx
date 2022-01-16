@@ -19,12 +19,8 @@ import SearchModal from "./search-modal";
 type Props = Pick<SiteMetadata, "title" | "menuLinks">;
 
 const Header = ({ title, menuLinks }: Props) => {
-  const [isOpen, setIsOpen] = React.useState<boolean>(false);
   const menu = useMenuState();
   const device = useDevice();
-
-  const handleOpen = () => setIsOpen(true);
-  const handleClose = () => setIsOpen(false);
 
   return (
     <Box backgroundColor="colorBackgroundBodyInverse" position="sticky" top={0} width="100%" zIndex="zIndex10">
@@ -75,7 +71,7 @@ const Header = ({ title, menuLinks }: Props) => {
                   </Text>
                 </Link>
               ))}
-              <SearchBar handleClose={handleClose} />
+              <SearchBar />
             </Stack>
           </>
         )}

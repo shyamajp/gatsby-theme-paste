@@ -33,7 +33,7 @@ const SearchModal = (props: Props) => {
         <ModalBody>
           <Flex vertical hAlignContent="center">
             <Box marginTop="space40" marginBottom="space60">
-              <SearchBar handleClose={handleClose} />
+              <SearchBar />
             </Box>
             <Paragraph>
               Type something relevant to the post(s) you are looking for. This search feature will go through <Text as="b">title</Text> and <Text as="b">body</Text> of every single post.

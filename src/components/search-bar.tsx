@@ -4,13 +4,12 @@ import { navigate } from "gatsby";
 import { Input } from "@twilio-paste/input";
 import { SearchIcon } from "@twilio-paste/icons/esm/SearchIcon";
 
-const SearchBar = ({ handleClose }) => {
+const SearchBar = () => {
   const [search, setSearch] = React.useState("");
 
   return (
     <form
       onSubmit={(e) => {
-        handleClose();
         e.preventDefault();
         navigate(`/search?search=${search}`);
         setSearch("");
