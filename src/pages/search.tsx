@@ -12,6 +12,7 @@ import PostSummaryCard from "../components/post-summary-card";
 import EmptyState from "../components/empty-state";
 import SearchModal from "../components/search-modal";
 import { PasteLink } from "../components/common";
+import SEO from "../components/seo";
 
 const Blog = ({ data, location }) => {
   const { search } = parse(location.search);
@@ -19,6 +20,7 @@ const Blog = ({ data, location }) => {
 
   return (
     <Layout>
+      <SEO title="Search" description="Shows a search result of posts." />
       <Breadcrumb>
         <BreadcrumbItem>
           <PasteLink to="/">All Posts</PasteLink>

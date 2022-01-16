@@ -10,16 +10,18 @@ import { Post } from "../queries/post";
 import Layout from "../components/layout";
 import { PasteLink } from "../components/common";
 import PostList from "../components/post-list";
+import SEO from "../components/seo";
 
 type Props = PostData<Pick<Post, "frontmatter" | "fields" | "excerpt">> & PaginatedPageContext & PageContext<"category", string>;
 
 const Categories = ({ pageContext, data }: Props) => {
   const { category, pagination } = pageContext;
   const { edges, totalCount } = data.allMdx;
-  const categoryHeader = `${totalCount} post${totalCount === 1 ? "" : "s"} categoryged with "${category}"`;
+  const categoryHeader = `${totalCount} post${totalCount === 1 ? "" : "s"} in category "${category}"`;
 
   return (
     <Layout>
+      <SEO title={`Pots - Category: ${category}`} description={`Shows a list of posts in category ${category}.`} />
       <Breadcrumb>
         <BreadcrumbItem>
           <PasteLink to="/">All Posts</PasteLink>

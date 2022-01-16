@@ -10,6 +10,7 @@ import { Post } from "../queries/post";
 import Layout from "../components/layout";
 import { PasteLink } from "../components/common";
 import PostList from "../components/post-list";
+import SEO from "../components/seo";
 
 type Props = PostData<Pick<Post, "frontmatter" | "fields" | "excerpt">> & PaginatedPageContext & PageContext<"tag", string>;
 
@@ -20,6 +21,7 @@ const Tags = ({ pageContext, data }: Props) => {
 
   return (
     <Layout>
+      <SEO title={`Posts - Tag: ${tag}`} description={`Shows a list of posts in tag ${tag}.`} />
       <Breadcrumb>
         <BreadcrumbItem>
           <PasteLink to="/">All Posts</PasteLink>

@@ -10,6 +10,7 @@ import { Page } from "../queries/post";
 import { PageContext } from "../types";
 
 import Layout from "../components/layout";
+import SEO from "../components/seo";
 
 type Props = PageContext<"page", Page>;
 
@@ -19,6 +20,7 @@ const PageTemplate = ({ pageContext: { page } }: Props) => {
 
   return (
     <Layout>
+      <SEO title={page.frontmatter.title} description={page.excerpt} />
       <Heading variant="heading10" as="h1">
         {page.frontmatter.title}
       </Heading>

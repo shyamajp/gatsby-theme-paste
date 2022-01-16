@@ -15,6 +15,7 @@ import { useSiteMetadata } from "../queries/siteMetadata";
 
 import Layout from "../components/layout";
 import { Avatar, PasteLink, PostGroupPills } from "../components/common";
+import SEO from "../components/seo";
 
 type Props = PageContext<"post", Post>;
 
@@ -25,6 +26,11 @@ const PostTemplate = ({ pageContext: { post } }: Props) => {
 
   return (
     <Layout>
+      <SEO
+        title={post.frontmatter.title}
+        description={`${post.excerpt}
+          Categories: ${post.frontmatter.categories} / Tags: ${post.frontmatter.tags}`}
+      />
       <Stack orientation="vertical" spacing="space40">
         <PostGroupPills type="categories" postGroups={post.frontmatter.categories} />
         <Heading variant="heading10" as="h1" marginBottom="space0">
