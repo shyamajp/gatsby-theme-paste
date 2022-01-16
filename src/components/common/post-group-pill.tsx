@@ -112,7 +112,7 @@ export const PostGroupPills = ({ type, postGroups, justifyContent = "flex-start"
     <PostGroupPillGroup aria-label={type} justifyContent={justifyContent}>
       {postGroups.slice(0, limit).map((postGroup) => {
         const pill = isString(postGroup) ? postGroup : `${postGroup.fieldValue} ${postGroup.totalCount}`;
-        const link = isString(postGroup) ? postGroup : postGroup.fieldValue.toLowerCase();
+        const link = isString(postGroup) ? postGroup.toLowerCase() : postGroup.fieldValue.toLowerCase();
 
         return type === "categories" ? (
           <CategoryPill key={link} to={`/${type}/${link}`}>
