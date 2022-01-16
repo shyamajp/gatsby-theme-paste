@@ -9,7 +9,7 @@ type PageFields = {
 };
 
 type PageFrontmatter = {
-  date: number;
+  date: string;
   title: string;
   image?: ImageDataLike;
 };
