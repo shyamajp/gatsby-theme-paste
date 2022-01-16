@@ -38,5 +38,5 @@ export const useDevice = () => {
     };
   }, [width]);
 
-  return device;
+  return React.useMemo(() => device, [device]);
 };
