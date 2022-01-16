@@ -15,7 +15,9 @@ const Social = ({ social }: Props) => {
     <Widget title="Social">
       {social.map(({ name, url }) => (
         <Box key={url}>
-          <Anchor href={url}>{name}</Anchor>
+          <Anchor href={url} showExternal>
+            {name}
+          </Anchor>
         </Box>
       ))}
     </Widget>
