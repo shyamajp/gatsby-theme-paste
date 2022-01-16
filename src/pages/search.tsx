@@ -2,6 +2,7 @@ import React from "react";
 import { graphql } from "gatsby";
 import { useFlexSearch } from "react-use-flexsearch";
 import { parse } from "query-string";
+import { HistoryLocation } from "@reach/router";
 
 import { Separator } from "@twilio-paste/separator";
 import { Heading } from "@twilio-paste/heading";
@@ -13,10 +14,28 @@ import EmptyState from "../components/empty-state";
 import SearchModal from "../components/search-modal";
 import { PasteLink } from "../components/common";
 import SEO from "../components/seo";
+import { Page, PageFields, PostFrontmatter } from "../queries/post";
 
-const Blog = ({ data, location }) => {
+type Props = {
+  data: {
+    localSearchBlog: {
+      index: string;
+      store: { [id: string]: SearchResult[] }[];
+    };
+  };
+  location: HistoryLocation;
+};
+
+export type SearchResult = PostFrontmatter &
+  Pick<Page, "excerpt"> &
+  PageFields & {
+    id: string;
+    type: string;
+  };
+
+const Blog = ({ data, location }: Props) => {
   const { search } = parse(location.search);
-  const results = useFlexSearch(search, data.localSearchBlog.index, data.localSearchBlog.store);
+  const results: SearchResult[] = useFlexSearch(search, data.localSearchBlog.index, data.localSearchBlog.store);
 
   return (
     <Layout>

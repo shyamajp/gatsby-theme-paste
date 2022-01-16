@@ -4,17 +4,18 @@ import { ImageDataLike } from "gatsby-plugin-image";
 import { PostGroup } from "../types";
 import { sortByTotalCount } from "../utils";
 
-type PageFields = {
+export type PageFields = {
   slug: string;
 };
 
-type PageFrontmatter = {
+export type PageFrontmatter = {
   date: string;
   title: string;
+  type: string;
   image?: ImageDataLike;
 };
 
-type PostFrontmatter = PageFrontmatter & {
+export type PostFrontmatter = PageFrontmatter & {
   tags?: string[];
   categories?: string[];
 };
@@ -66,12 +67,14 @@ export const postFragments = graphql`
   }
 `;
 
-type UsePostGroups = {
+export type PostGroups = {
   categories: PostGroup[];
   tags: PostGroup[];
 };
 
-export const usePostGroups = (): UsePostGroups => {
+export type ExtendedPostGroups = PostGroups | Pick<PostFrontmatter, "tags" | "categories">;
+
+export const usePostGroups = (): PostGroups => {
   const { categories, tags } = useStaticQuery(
     graphql`
       query {

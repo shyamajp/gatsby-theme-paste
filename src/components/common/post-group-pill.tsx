@@ -96,9 +96,11 @@ const PostGroupPillGroup = ({ children, justifyContent = "flex-start" }: PostGro
   );
 };
 
+export type PostGroupType = "categories" | "tags";
+
 type PostGroupPillsProps = {
   postGroups: PostGroup[] | string[];
-  type: "tags" | "categories";
+  type: PostGroupType;
   justifyContent?: JustifyContent;
   limit?: number;
 };

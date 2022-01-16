@@ -14,8 +14,7 @@ type Props = Exclude<ButtonProps, "onClick"> & {
   children: React.ReactNode;
 };
 
-const SearchModal = (props: Props) => {
-  const { children, ...buttonProps } = props;
+const SearchModal = ({ children, ...buttonProps }: Props) => {
   const [isOpen, setIsOpen] = React.useState<boolean>(false);
 
   const handleOpen = () => setIsOpen(true);

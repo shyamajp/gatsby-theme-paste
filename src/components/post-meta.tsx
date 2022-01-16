@@ -6,16 +6,13 @@ import { Paragraph } from "@twilio-paste/paragraph";
 import { Text } from "@twilio-paste/text";
 
 import { PasteLink, PostGroupPills } from "./common";
-import { PostGroup } from "../types";
+import { ExtendedPostGroups, Page, PageFrontmatter } from "../queries/post";
 
-type Props = {
-  link: string;
-  title: string;
-  date: string;
-  excerpt: string;
-  categories?: string[] | PostGroup[];
-  tags?: string[] | PostGroup[];
-};
+type Props = ExtendedPostGroups &
+  Pick<PageFrontmatter, "date" | "title"> &
+  Pick<Page, "excerpt"> & {
+    link: string;
+  };
 
 const PostMeta = ({ link, title, date, categories, tags, excerpt }: Props) => {
   return (

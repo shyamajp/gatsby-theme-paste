@@ -1,10 +1,10 @@
 import React from "react";
-import { GatsbyImage, getImage, ImageDataLike, StaticImage } from "gatsby-plugin-image";
+import { GatsbyImage, getImage, StaticImage } from "gatsby-plugin-image";
 
 import { useSiteMetadata } from "../queries/siteMetadata";
+import { PostFrontmatter } from "../queries/post";
 
-type Props = {
-  image?: ImageDataLike;
+type Props = Pick<PostFrontmatter, "image"> & {
   alt: string;
   width?: number;
 };

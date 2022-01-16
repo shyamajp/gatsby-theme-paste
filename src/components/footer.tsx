@@ -12,19 +12,16 @@ import { Paragraph } from "@twilio-paste/paragraph";
 import { ChevronUpIcon } from "@twilio-paste/icons/esm/ChevronUpIcon";
 
 import { SiteMetadata } from "../queries/siteMetadata";
-import { PostGroup } from "../types";
 
 import { PasteLink, PostGroupPills } from "./common";
+import { PostGroups } from "../queries/post";
 
-type Props = {
+type Props = PostGroups & {
   siteMetadata: SiteMetadata;
-  tags: PostGroup[];
-  categories: PostGroup[];
 };
 
-type FooterBlockProps = {
+type FooterBlockProps = Pick<SiteMetadata, "title"> & {
   children: React.ReactNode;
-  title: string;
 };
 
 const FooterBlock = ({ children, title }: FooterBlockProps) => (

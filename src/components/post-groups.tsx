@@ -5,11 +5,11 @@ import { Box } from "@twilio-paste/box";
 import { PostGroup } from "../types";
 import { toTitleCase } from "../utils";
 
-import { Widget, PasteLink, PostGroupPills } from "./common";
+import { Widget, PasteLink, PostGroupPills, PostGroupType } from "./common";
 
 type PostGroupProps = {
   postGroups: PostGroup[];
-  type: "categories" | "tags";
+  type: PostGroupType;
 };
 
 const PostGroups = ({ postGroups, type }: PostGroupProps) => {

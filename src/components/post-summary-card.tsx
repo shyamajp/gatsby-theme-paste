@@ -1,25 +1,13 @@
 import React from "react";
-import { ImageDataLike } from "gatsby-plugin-image";
 
 import { Box } from "@twilio-paste/box";
 import { Grid, Column } from "@twilio-paste/grid";
 
 import PostImage from "./post-image";
 import PostMeta from "./post-meta";
+import { SearchResult } from "../pages/search";
 
-type Props = {
-  id: string;
-  title: string;
-  type: string;
-  slug: string;
-  date: string;
-  image: ImageDataLike;
-  excerpt: string;
-  tags?: string[];
-  categories?: string[];
-};
-
-const PostSummaryCard = ({ slug, title, type, date, image, excerpt, tags, categories }: Props) => {
+const PostSummaryCard = ({ slug, title, type, date, image, excerpt, tags, categories }: SearchResult) => {
   return (
     <Box width="100%">
       <Grid gutter={["space30", "space60", "space60"]} vertical={[true, false, false]}>
