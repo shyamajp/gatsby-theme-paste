@@ -13,6 +13,7 @@ import PostImage from "./post-image";
 type Props = {
   id: string;
   title: string;
+  type: string;
   slug: string;
   date: string;
   image: ImageDataLike;
@@ -21,7 +22,7 @@ type Props = {
   categories?: string[];
 };
 
-const PostSummaryCard = ({ slug, title, date, image, excerpt, tags, categories }: Props) => {
+const PostSummaryCard = ({ slug, title, type, date, image, excerpt, tags, categories }: Props) => {
   return (
     <Box width="100%">
       <Grid gutter="space60">
@@ -30,7 +31,7 @@ const PostSummaryCard = ({ slug, title, date, image, excerpt, tags, categories }
         </Column>
         <Column span={[12, 8, 8]} vertical={[true, false, false]}>
           <Stack orientation="vertical" spacing="space40">
-            <PasteLink to={`/blog/${slug}`}>
+            <PasteLink to={type === "post" ? `/blog/${slug}` : `/${slug}`}>
               <Text as="h2" fontSize="fontSize50">
                 {title}
               </Text>

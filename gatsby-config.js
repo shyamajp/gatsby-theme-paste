@@ -77,11 +77,12 @@ module.exports = ({ contentPath = "content", postsPerPage = 10 }) => ({
         `,
         ref: "id",
         index: ["title", "body"],
-        store: ["id", "title", "slug", "date", "image", "excerpt", "tags", "categories"],
+        store: ["id", "title", "slug", "date", "image", "excerpt", "tags", "categories", "type"],
         normalizer: ({ data }) =>
           data.allMdx.nodes.map((node) => ({
             id: node.id,
             title: node.frontmatter.title,
+            type: node.frontmatter.type,
             slug: node.fields.slug,
             date: node.frontmatter.date,
             excerpt: node.excerpt,
