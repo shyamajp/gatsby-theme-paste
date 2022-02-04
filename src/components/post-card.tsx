@@ -1,4 +1,5 @@
 import React from "react";
+import { navigate } from "gatsby";
 
 import { Box } from "@twilio-paste/box";
 import { Stack } from "@twilio-paste/stack";
@@ -13,11 +14,20 @@ type Props = {
 };
 
 const PostCard = ({ post }: Props) => {
+  const link = `/blog/${post.fields.slug}`;
+
   return (
-    <Box width="100%">
+    <Box
+      width="100%"
+      onClick={() => navigate(link)}
+      _hover={{
+        backgroundColor: "colorBackground",
+      }}
+      padding="space60"
+    >
       <Stack orientation="vertical" spacing="space30">
         <PostImage image={post.frontmatter.image} alt={post.frontmatter.title} />
-        <PostMeta link={`/blog/${post.fields.slug}`} excerpt={post.excerpt} {...post.frontmatter} />
+        <PostMeta link={link} excerpt={post.excerpt} {...post.frontmatter} />
       </Stack>
     </Box>
   );
