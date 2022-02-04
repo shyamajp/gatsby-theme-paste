@@ -16,7 +16,7 @@ const PostCard = ({ post }: Props) => {
   return (
     <Box width="100%">
       <Stack orientation="vertical" spacing="space30">
-        <PostImage image={post.frontmatter.image} alt={post.frontmatter.title} width={600} />
+        <PostImage image={post.frontmatter.image} alt={post.frontmatter.title} />
         <PostMeta link={`/blog/${post.fields.slug}`} excerpt={post.excerpt} {...post.frontmatter} />
       </Stack>
     </Box>
