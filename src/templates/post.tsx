@@ -14,8 +14,7 @@ import { Post } from "../queries/post";
 import { useSiteMetadata } from "../queries/siteMetadata";
 
 import Layout from "../components/layout";
-import { Avatar, PasteLink, PostGroupPills } from "../components/common";
-import SEO from "../components/seo";
+import { Avatar, PasteLink, PostGroupPills, SEO } from "../components/common";
 
 type Props = PageContext<"post", Post>;
 

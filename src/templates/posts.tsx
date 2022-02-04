@@ -6,7 +6,7 @@ import { Post } from "../queries/post";
 
 import Layout from "../components/layout";
 import PostList from "../components/post-list";
-import SEO from "../components/seo";
+import { SEO } from "../components/common";
 
 type Props = PostData<Pick<Post, "frontmatter" | "fields" | "excerpt">> & PaginatedPageContext & PageContext<"category", string>;
 

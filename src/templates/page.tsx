@@ -10,7 +10,7 @@ import { Page } from "../queries/post";
 import { PageContext } from "../types";
 
 import Layout from "../components/layout";
-import SEO from "../components/seo";
+import { SEO } from "../components/common";
 
 type Props = PageContext<"page", Page>;
 

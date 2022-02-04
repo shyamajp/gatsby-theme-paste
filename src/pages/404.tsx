@@ -3,9 +3,8 @@ import React from "react";
 import { Heading } from "@twilio-paste/heading";
 
 import Layout from "../components/layout";
-import SEO from "../components/seo";
 import EmptyState from "../components/empty-state";
-import { PasteLink } from "../components/common";
+import { PasteLink, SEO } from "../components/common";
 
 const NotFound = () => {
   return (

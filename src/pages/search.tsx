@@ -12,8 +12,7 @@ import Layout from "../components/layout";
 import PostSummaryCard from "../components/post-summary-card";
 import EmptyState from "../components/empty-state";
 import SearchModal from "../components/search-modal";
-import { PasteLink } from "../components/common";
-import SEO from "../components/seo";
+import { PasteLink, SEO } from "../components/common";
 import { Page, PageFields, PostFrontmatter } from "../queries/post";
 
 type Props = {

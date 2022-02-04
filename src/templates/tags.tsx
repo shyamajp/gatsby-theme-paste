@@ -8,9 +8,8 @@ import { PageContext, PaginatedPageContext, PostData } from "../types";
 import { Post } from "../queries/post";
 
 import Layout from "../components/layout";
-import { PasteLink } from "../components/common";
+import { PasteLink, SEO } from "../components/common";
 import PostList from "../components/post-list";
-import SEO from "../components/seo";
 
 type Props = PostData<Pick<Post, "frontmatter" | "fields" | "excerpt">> & PaginatedPageContext & PageContext<"tag", string>;
 

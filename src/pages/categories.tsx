@@ -5,8 +5,7 @@ import { Heading } from "@twilio-paste/heading";
 import { usePostGroups } from "../queries/post";
 
 import Layout from "../components/layout";
-import { PostGroupPills } from "../components/common";
-import SEO from "../components/seo";
+import { PostGroupPills, SEO } from "../components/common";
 
 const CategoriesPage = () => {
   const { categories } = usePostGroups();

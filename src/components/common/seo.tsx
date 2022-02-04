@@ -2,7 +2,7 @@ import React from "react";
 import { Helmet } from "react-helmet";
 import { useLocation } from "@reach/router";
 
-import { useSiteMetadata } from "../queries/siteMetadata";
+import { useSiteMetadata } from "../../queries/siteMetadata";
 
 type Props = {
   title?: string;
@@ -10,7 +10,7 @@ type Props = {
   image?: string;
 };
 
-const SEO = ({ title, description, image }: Props) => {
+export const SEO = ({ title, description, image }: Props) => {
   const { pathname } = useLocation();
   const {
     siteMetadata: { title: defaultTitle, description: defaultDescription, siteUrl, author },
@@ -49,5 +49,3 @@ const SEO = ({ title, description, image }: Props) => {
     </Helmet>
   );
 };
-
-export default SEO;
