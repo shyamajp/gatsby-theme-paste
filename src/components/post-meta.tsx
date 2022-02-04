@@ -16,12 +16,10 @@ type Props = ExtendedPostGroups &
 
 const PostMeta = ({ link, title, date, categories, tags, excerpt }: Props) => {
   return (
-    <Stack orientation="vertical" spacing="space40">
-      <PasteLink to={link}>
-        <Text as="h2" fontSize="fontSize50">
-          {title}
-        </Text>
-      </PasteLink>
+    <Stack orientation="vertical" spacing="space20">
+      <Text as="h2" fontSize="fontSize50">
+        <PasteLink to={link}>{title}</PasteLink>
+      </Text>
       <Box>
         <Text as="small" color="colorTextWeak" fontSize="fontSize20">
           {date}
