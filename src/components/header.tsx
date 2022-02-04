@@ -3,7 +3,6 @@ import { Link, navigate } from "gatsby";
 
 import { Box } from "@twilio-paste/box";
 import { Stack } from "@twilio-paste/stack";
-import { Button } from "@twilio-paste/button";
 import { Text } from "@twilio-paste/text";
 import { Flex } from "@twilio-paste/flex";
 import { Menu, MenuButton, MenuItem, useMenuState, MenuGroup } from "@twilio-paste/menu";
