@@ -11,10 +11,10 @@ const PostSummaryCard = ({ slug, title, type, date, image, excerpt, tags, catego
   return (
     <Box width="100%">
       <Grid gutter={["space30", "space60", "space60"]} vertical={[true, false, false]}>
-        <Column span={[12, 4, 4]}>
+        <Column span={[12, 6, 4]}>
           <PostImage image={image} alt={title} />
         </Column>
-        <Column span={[12, 8, 8]}>
+        <Column span={[12, 6, 8]}>
           <PostMeta link={type === "post" ? `/blog/${slug}` : `/${slug}`} title={title} date={date} excerpt={excerpt} tags={tags} categories={categories} />
         </Column>
       </Grid>
