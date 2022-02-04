@@ -43,7 +43,7 @@ const Footer = ({ siteMetadata, categories, tags }: Props) => {
           <ChevronUpIcon decorative={false} title="Go back to page top" size="sizeIcon60" />
         </Button>
       </Flex>
-      <Grid>
+      <Grid gutter={["space60", "space0", "space0"]} vertical={[true, false, false]}>
         <Column span={[12, 6, 3]}>
           <FooterBlock title="Quick Links">
             {siteMetadata.quickLinks.map((quickLink) => (
