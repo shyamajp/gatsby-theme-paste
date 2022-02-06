@@ -1,5 +1,19 @@
 # Changelog
 
+## [Unreleased]
+
+### Added
+
+- Add hover state for navigation in post card
+
+### Changed
+
+- Adjust gap between post cards in list view
+
+### Fixed
+
+- Removed illegal usage of width in StaticImage
+
 ## [1.0.1] - 2022-01-16
 
 ### Added
